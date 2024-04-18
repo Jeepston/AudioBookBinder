@@ -29,8 +29,9 @@
 #import <AudioToolbox/AudioConverter.h>
 
 #import "AudioBinder.h"
-#import "AudioBookVolume.h"
+//#import "AudioBookVolume.h"
 #import "ABBLog.h"
+#import "AudioBookBinder-Swift.h"
 
 // 1M seems to be sane buffer size nowadays
 #define AUDIO_BUFFER_SIZE 1*1024*1024
@@ -117,7 +118,7 @@ stringForOSStatus(OSStatus err)
 
 @implementation AudioBinder
 
--(id)init
+-(instancetype)init
 {
     if ((self = [super init])) {
         _volumes = [[NSMutableArray alloc] init];
@@ -147,7 +148,7 @@ stringForOSStatus(OSStatus err)
 
 -(void) addVolume:(NSString*)filename files:(NSArray*)files
 {
-    AudioBookVolume *volume = [[AudioBookVolume alloc] initWithName:filename files:files];
+    AudioBookVolume *volume = [[AudioBookVolume alloc] initWithFilename:filename inputFiles:files];
     [_volumes addObject:volume];
 }
 

@@ -41,7 +41,7 @@
 
 @implementation CoverImageView
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         self.coverImage = nil;
@@ -50,7 +50,7 @@
         normalColor = [NSColor colorWithCalibratedWhite:0.4 alpha:1];
         [self prepareAttributes];
         string = NSLocalizedString(@"⌘ + I\nor\nDrag Image Here", nil);
-        [self registerForDraggedTypes:[NSArray arrayWithObjects:NSTIFFPboardType, 
+        [self registerForDraggedTypes:[NSArray arrayWithObjects:NSPasteboardTypeTIFF, 
                                        NSFilenamesPboardType, nil]];
         self.coverImageFilename = nil;
 
@@ -67,7 +67,7 @@
 
     NSMutableParagraphStyle *centeredStyle = 
         [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    [centeredStyle setAlignment:NSCenterTextAlignment];
+    [centeredStyle setAlignment:NSTextAlignmentCenter];
 
     [attributes setObject:[centeredStyle copy]
                    forKey:NSParagraphStyleAttributeName];
@@ -166,7 +166,7 @@
         [[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
         [_coverImage drawInRect:NSMakeRect(0, 0, scaledSize.width, scaledSize.height)
                     fromRect:NSMakeRect(0, 0, origSize.width, origSize.height)
-                   operation:NSCompositeSourceOver 
+                      operation:NSCompositingOperationSourceOver 
                     fraction:1.0];
         [scaledImage unlockFocus];
     }
@@ -252,7 +252,7 @@
         arr[1] = 2.0;
         
         [bgPath setLineDash:arr count:2 phase:0.0];
-        [bgPath setLineCapStyle:NSRoundLineCapStyle];
+        [bgPath setLineCapStyle:NSLineCapStyleRound];
         [bgPath stroke];
         [self drawStringCenteredIn:[self bounds]];
     }
@@ -264,7 +264,7 @@
         orig.x = (viewSize.size.width - imageSize.width) / 2;
         orig.y = (viewSize.size.height - imageSize.height) / 2;
         
-        [scaledImage drawAtPoint:orig fromRect:imageRect operation:NSCompositeSourceOver fraction:1.0];
+        [scaledImage drawAtPoint:orig fromRect:imageRect operation:NSCompositingOperationSourceOver fraction:1.0];
     }
     
 }
@@ -277,7 +277,7 @@
     
     NSPasteboard *paste = [sender draggingPasteboard];
     //gets the dragging-specific pasteboard from the sender
-    NSArray *types = [NSArray arrayWithObjects:NSTIFFPboardType, 
+    NSArray *types = [NSArray arrayWithObjects:NSPasteboardTypeTIFF, 
                       NSFilenamesPboardType, nil];
     //a list of types that we can accept
     NSString *desiredType = [paste availableTypeFromArray:types];
@@ -316,7 +316,7 @@
 {
     NSPasteboard *paste = [sender draggingPasteboard];
     //gets the dragging-specific pasteboard from the sender
-    NSArray *types = [NSArray arrayWithObjects:NSTIFFPboardType, 
+    NSArray *types = [NSArray arrayWithObjects:NSPasteboardTypeTIFF, 
                       NSFilenamesPboardType, nil];
     //a list of types that we can accept
     NSString *desiredType = [paste availableTypeFromArray:types];
@@ -333,7 +333,7 @@
     {
         NSImage *newImage = nil;
         //the pasteboard was able to give us some meaningful data
-        if ([desiredType isEqualToString:NSTIFFPboardType])
+        if ([desiredType isEqualToString:NSPasteboardTypeTIFF])
         {
             [self resetImage];
             //we have TIFF bitmap data in the NSData object

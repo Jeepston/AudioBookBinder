@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A1316CF2BD15D4300575704 /* AudioBookVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1316CE2BD15D4300575704 /* AudioBookVolume.swift */; };
+		3AAF93A52BD161BA00C3C636 /* AudioBookVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1316CE2BD15D4300575704 /* AudioBookVolume.swift */; };
 		8DD76F9A0486AA7600D96B5E /* abbinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* abbinder.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* AudioBookBinder.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* AudioBookBinder.1 */; };
@@ -199,7 +201,6 @@
 		9FB4DE0711C05C0E007B3DDE /* MetaEditor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FB4DE0611C05C0E007B3DDE /* MetaEditor.mm */; };
 		9FB4DE0811C05C0E007B3DDE /* MetaEditor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FB4DE0611C05C0E007B3DDE /* MetaEditor.mm */; };
 		9FBCBF46102A6A2C0067AE9F /* ConsoleDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBCBF45102A6A2C0067AE9F /* ConsoleDelegate.m */; };
-		9FC46A2E22ADB97D003F57C7 /* AudioBinderWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F1FFD5E185E7955005EF748 /* AudioBinderWindow.xib */; };
 		9FD5D3651CEA5146008B74AF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD5D3641CEA5146008B74AF /* QuartzCore.framework */; };
 		9FD5D3681CEA549E008B74AF /* QueueOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FD5D3671CEA549E008B74AF /* QueueOverlayView.m */; };
 		9FFED9901128C1AD00C3AFE6 /* NSOutlineView_Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFED98F1128C1AD00C3AFE6 /* NSOutlineView_Extension.m */; };
@@ -251,6 +252,8 @@
 		08FB7796FE84155DC02AAC07 /* abbinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = abbinder.m; sourceTree = "<group>"; };
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32A70AAB03705E1F00C91783 /* AudioBookBinder_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioBookBinder_Prefix.pch; sourceTree = "<group>"; };
+		3A1316CD2BD15D4300575704 /* abbinder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "abbinder-Bridging-Header.h"; sourceTree = "<group>"; };
+		3A1316CE2BD15D4300575704 /* AudioBookVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBookVolume.swift; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* abbinder */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = abbinder; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F02CE10101EA8B100AE315D /* AudioBinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioBinder.h; sourceTree = "<group>"; };
 		9F02CE11101EA8B100AE315D /* AudioBinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioBinder.m; sourceTree = "<group>"; };
@@ -539,51 +542,10 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				08FB7796FE84155DC02AAC07 /* abbinder.m */,
-				9F02CE64101FF8D900AE315D /* ABBLog.h */,
-				9F02CE65101FF8D900AE315D /* ABBLog.m */,
-				9F02CE10101EA8B100AE315D /* AudioBinder.h */,
-				9F02CE11101EA8B100AE315D /* AudioBinder.m */,
-				9F1FFD5B185D6F8F005EF748 /* AudioBinderWindowController.h */,
-				9F1FFD5C185D6F8F005EF748 /* AudioBinderWindowController.m */,
+				3A1316CC2BD007C500575704 /* AudioBookBinder */,
+				3A1316CB2BD0079300575704 /* abbinder */,
+				3A1316CA2BD0072100575704 /* Shared */,
 				32A70AAB03705E1F00C91783 /* AudioBookBinder_Prefix.pch */,
-				9F6FA3BD11191AEA0047728F /* AudioBookBinder.m */,
-				9F6FA3E2111BBD640047728F /* AudioBookBinderAppDelegate.h */,
-				9F6FA3E3111BBD640047728F /* AudioBookBinderAppDelegate.m */,
-				9F61BE3611FBBC8D00654B3B /* AudioBookVolume.h */,
-				9F61BE3711FBBC8D00654B3B /* AudioBookVolume.m */,
-				9F6FA4A7111E56090047728F /* AudioFile.h */,
-				9F6FA4A8111E56090047728F /* AudioFile.m */,
-				9F6FA40F111D161A0047728F /* AudioFileList.h */,
-				9F6FA410111D161A0047728F /* AudioFileList.m */,
-				9FA52D9D11C2FFCE003FD879 /* Chapter.h */,
-				9FA52D9E11C2FFCE003FD879 /* Chapter.m */,
-				9FB964F21CD81F9A0028268F /* ConfigNames.h */,
-				9FBCBF44102A6A2C0067AE9F /* ConsoleDelegate.h */,
-				9FBCBF45102A6A2C0067AE9F /* ConsoleDelegate.m */,
-				9F62872A1194D502000D3A05 /* CoverImageView.h */,
-				9F62872B1194D502000D3A05 /* CoverImageView.m */,
-				9FAB146911619F9F00A2F36A /* ExpandedPathToIconTransformer.h */,
-				9FAB146A11619F9F00A2F36A /* ExpandedPathToIconTransformer.m */,
-				9FAB146B11619F9F00A2F36A /* ExpandedPathToPathTransformer.h */,
-				9FAB146C11619F9F00A2F36A /* ExpandedPathToPathTransformer.m */,
-				9FB4DE0511C05C0E007B3DDE /* MetaEditor.h */,
-				9FB4DE0611C05C0E007B3DDE /* MetaEditor.mm */,
-				9F86C0CD1023D99300E65B00 /* MP4Atom.h */,
-				9F86C0CE1023D99300E65B00 /* MP4Atom.m */,
-				9F86C0D01023DAC000E65B00 /* MP4File.h */,
-				9F86C0D11023DAC000E65B00 /* MP4File.m */,
-				9FFED98E1128C1AD00C3AFE6 /* NSOutlineView_Extension.h */,
-				9FFED98F1128C1AD00C3AFE6 /* NSOutlineView_Extension.m */,
-				9FAB14801161A51400A2F36A /* PrefsController.h */,
-				9FAB14811161A51400A2F36A /* PrefsController.m */,
-				9F6440131CDFE14100DABC17 /* QueueController.h */,
-				9F6440141CDFE14100DABC17 /* QueueController.m */,
-				9F6440151CDFE14100DABC17 /* QueueWindow.xib */,
-				9F1FFD661862A27D005EF748 /* StatsManager.h */,
-				9F1FFD671862A27D005EF748 /* StatsManager.m */,
-				9FD5D3661CEA549E008B74AF /* QueueOverlayView.h */,
-				9FD5D3671CEA549E008B74AF /* QueueOverlayView.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -608,6 +570,72 @@
 				9F4D50302930600600EC5662 /* libmp4v2.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3A1316CA2BD0072100575704 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				9F02CE64101FF8D900AE315D /* ABBLog.h */,
+				9F02CE65101FF8D900AE315D /* ABBLog.m */,
+				9F02CE10101EA8B100AE315D /* AudioBinder.h */,
+				9F02CE11101EA8B100AE315D /* AudioBinder.m */,
+				9F61BE3611FBBC8D00654B3B /* AudioBookVolume.h */,
+				9F61BE3711FBBC8D00654B3B /* AudioBookVolume.m */,
+				3A1316CE2BD15D4300575704 /* AudioBookVolume.swift */,
+				9F6FA4A7111E56090047728F /* AudioFile.h */,
+				9F6FA4A8111E56090047728F /* AudioFile.m */,
+				9FA52D9D11C2FFCE003FD879 /* Chapter.h */,
+				9FA52D9E11C2FFCE003FD879 /* Chapter.m */,
+				9FB4DE0511C05C0E007B3DDE /* MetaEditor.h */,
+				9FB4DE0611C05C0E007B3DDE /* MetaEditor.mm */,
+				9F86C0CD1023D99300E65B00 /* MP4Atom.h */,
+				9F86C0CE1023D99300E65B00 /* MP4Atom.m */,
+				9F86C0D01023DAC000E65B00 /* MP4File.h */,
+				9F86C0D11023DAC000E65B00 /* MP4File.m */,
+				3A1316CD2BD15D4300575704 /* abbinder-Bridging-Header.h */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		3A1316CB2BD0079300575704 /* abbinder */ = {
+			isa = PBXGroup;
+			children = (
+				08FB7796FE84155DC02AAC07 /* abbinder.m */,
+				9FBCBF44102A6A2C0067AE9F /* ConsoleDelegate.h */,
+				9FBCBF45102A6A2C0067AE9F /* ConsoleDelegate.m */,
+			);
+			name = abbinder;
+			sourceTree = "<group>";
+		};
+		3A1316CC2BD007C500575704 /* AudioBookBinder */ = {
+			isa = PBXGroup;
+			children = (
+				9F6FA3BD11191AEA0047728F /* AudioBookBinder.m */,
+				9F1FFD5B185D6F8F005EF748 /* AudioBinderWindowController.h */,
+				9F1FFD5C185D6F8F005EF748 /* AudioBinderWindowController.m */,
+				9F6FA3E2111BBD640047728F /* AudioBookBinderAppDelegate.h */,
+				9F6FA3E3111BBD640047728F /* AudioBookBinderAppDelegate.m */,
+				9F6FA40F111D161A0047728F /* AudioFileList.h */,
+				9F6FA410111D161A0047728F /* AudioFileList.m */,
+				9F62872A1194D502000D3A05 /* CoverImageView.h */,
+				9F62872B1194D502000D3A05 /* CoverImageView.m */,
+				9FAB146911619F9F00A2F36A /* ExpandedPathToIconTransformer.h */,
+				9FAB146A11619F9F00A2F36A /* ExpandedPathToIconTransformer.m */,
+				9FAB146B11619F9F00A2F36A /* ExpandedPathToPathTransformer.h */,
+				9FAB146C11619F9F00A2F36A /* ExpandedPathToPathTransformer.m */,
+				9FFED98E1128C1AD00C3AFE6 /* NSOutlineView_Extension.h */,
+				9FFED98F1128C1AD00C3AFE6 /* NSOutlineView_Extension.m */,
+				9FAB14801161A51400A2F36A /* PrefsController.h */,
+				9FAB14811161A51400A2F36A /* PrefsController.m */,
+				9F6440131CDFE14100DABC17 /* QueueController.h */,
+				9F6440141CDFE14100DABC17 /* QueueController.m */,
+				9F1FFD661862A27D005EF748 /* StatsManager.h */,
+				9F1FFD671862A27D005EF748 /* StatsManager.m */,
+				9FD5D3661CEA549E008B74AF /* QueueOverlayView.h */,
+				9FD5D3671CEA549E008B74AF /* QueueOverlayView.m */,
+				9FB964F21CD81F9A0028268F /* ConfigNames.h */,
+			);
+			name = AudioBookBinder;
 			sourceTree = "<group>";
 		};
 		9F4D50362930604C00EC5662 /* third_party */ = {
@@ -851,6 +879,7 @@
 		9F95911E11658523001C2433 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9F6440151CDFE14100DABC17 /* QueueWindow.xib */,
 				9F776EC613CD6D5D004569F4 /* MiniProgressGradient.png */,
 				9F6FA3D6111BBBC20047728F /* MainMenu.xib */,
 				9F1FFD5E185E7955005EF748 /* AudioBinderWindow.xib */,
@@ -995,9 +1024,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1530;
 				ORGANIZATIONNAME = AudioBookBinder;
 				TargetAttributes = {
+					8DD76F960486AA7600D96B5E = {
+						LastSwiftMigration = 1530;
+					};
 					9F4D502F2930600600EC5662 = {
 						CreatedOnToolsVersion = 14.1;
 						ProvisioningStyle = Automatic;
@@ -1033,7 +1065,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FC46A2E22ADB97D003F57C7 /* AudioBinderWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1072,6 +1103,7 @@
 				9FA52D9211C2F100003FD879 /* AudioFile.m in Sources */,
 				9FA52DA011C2FFCE003FD879 /* Chapter.m in Sources */,
 				9F61BE3A11FBBC8D00654B3B /* AudioBookVolume.m in Sources */,
+				3A1316CF2BD15D4300575704 /* AudioBookVolume.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1199,6 +1231,7 @@
 				9F61BE3B11FBBC8D00654B3B /* AudioBookVolume.m in Sources */,
 				9F1FFD5D185D6F8F005EF748 /* AudioBinderWindowController.m in Sources */,
 				9F1FFD681862A27D005EF748 /* StatsManager.m in Sources */,
+				3AAF93A52BD161BA00C3C636 /* AudioBookVolume.swift in Sources */,
 				9F6440161CDFE14100DABC17 /* QueueController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1278,10 +1311,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1289,11 +1324,13 @@
 				GCC_PREFIX_HEADER = AudioBookBinder_Prefix.pch;
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = abbinder;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1301,20 +1338,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AudioBookBinder_Prefix.pch;
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = abbinder;
 				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1342,6 +1382,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
 				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1361,13 +1402,15 @@
 					third_party/mp4v2/include,
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = AudioBookBinder;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "abbinder-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1395,6 +1438,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1410,11 +1454,13 @@
 					third_party/mp4v2/include,
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = abbinder;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "abbinder-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1425,7 +1471,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1435,6 +1481,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1443,6 +1490,7 @@
 					"$(inherited)",
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					third_party/mp4v2/xcode/include,
@@ -1465,7 +1513,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1475,10 +1523,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					third_party/mp4v2/xcode/include,
@@ -1501,7 +1551,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1511,10 +1561,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = (
 					third_party/mp4v2/xcode/include,
@@ -1534,6 +1586,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = AudioBookBinder.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1542,7 +1595,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 52P3J8ZSHX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -1551,7 +1605,7 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "AudioBookBinder-Info.plist";
 				INSTALL_PATH = /Applications;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_CPLUSPLUSFLAGS = "";
@@ -1566,6 +1620,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1573,6 +1628,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = AudioBookBinder.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1582,14 +1638,15 @@
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 52P3J8ZSHX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "AudioBookBinder-Info.plist";
 				INSTALL_PATH = /Applications;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_CPLUSPLUSFLAGS = "";
@@ -1604,6 +1661,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -1633,6 +1691,7 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1649,11 +1708,13 @@
 					third_party/mp4v2/include,
 				);
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = abbinder;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "abbinder-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = AppStore;
@@ -1662,19 +1723,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "-";
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AudioBookBinder_Prefix.pch;
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = "";
-				MACOSX_DEPLOYMENT_TARGET = 11.5;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = abbinder;
 				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = AppStore;
 		};
@@ -1682,6 +1746,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = "AudioBookBinder-appstore.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1691,14 +1756,15 @@
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 52P3J8ZSHX;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
 				INFOPLIST_FILE = "AudioBookBinder-Info.plist";
 				INSTALL_PATH = /Applications;
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1711,6 +1777,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 				ZERO_LINK = NO;
 			};
 			name = AppStore;

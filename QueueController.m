@@ -44,7 +44,7 @@
 
 @implementation QueueItemCell
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -52,7 +52,7 @@
     return self;
 }
 
-- (id)copyWithZone:(NSZone *)zone
+- (instancetype)copyWithZone:(NSZone *)zone
 {
     QueueItemCell* c = [[QueueItemCell alloc] init];
     c.audiobook = _audiobook;;
@@ -128,7 +128,7 @@
     static NSMutableParagraphStyle* fileNameStyle = nil;
     if (!fileNameStyle) {
         fileNameStyle = [NSMutableParagraphStyle new];
-        [fileNameStyle setAlignment:NSLeftTextAlignment];
+        [fileNameStyle setAlignment:NSTextAlignmentLeft];
         [fileNameStyle setLineBreakMode:NSLineBreakByTruncatingMiddle];
     }
     return fileNameStyle;
@@ -139,7 +139,7 @@
     static NSMutableParagraphStyle* statusStyle = nil;
     if (!statusStyle) {
         statusStyle = [NSMutableParagraphStyle new];
-        [statusStyle setAlignment:NSLeftTextAlignment];
+        [statusStyle setAlignment:NSTextAlignmentLeft];
         [statusStyle setLineBreakMode:NSLineBreakByTruncatingTail];
     }
     return statusStyle;

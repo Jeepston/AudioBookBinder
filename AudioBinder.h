@@ -55,7 +55,7 @@
 @property (assign) UInt32 bitrate;
 @property (readonly) NSMutableArray *volumes;
 
--(id) init;
+-(instancetype) init;
 -(void) reset;
 -(void) setDelegate: (id <AudioBinderDelegate>)delegate;
 -(void) addVolume:(NSString*)filename files:(NSArray*)files;

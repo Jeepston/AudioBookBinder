@@ -29,7 +29,7 @@
 
 @implementation Chapter
 
-- (id) init
+- (instancetype) init
 {
     if (self = [super init]) {
         _files = [[NSMutableArray alloc] init];
@@ -38,7 +38,7 @@
     return self;
 }
 
-- (id)copy
+- (instancetype)copy
 {
     Chapter *c = [[Chapter alloc] init];
     c.name = self.name;

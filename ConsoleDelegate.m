@@ -39,7 +39,7 @@
 
 @implementation ConsoleDelegate
 
--(id) init
+-(instancetype) init
 {
     [super init];
 

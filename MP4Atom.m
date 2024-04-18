@@ -35,7 +35,7 @@
 
 @implementation MP4Atom
 
--(id) initWithName: (NSString*)atom andLength:(UInt32)len;
+-(instancetype) initWithName: (NSString*)atom andLength:(UInt32)len;
 {
     if (!(self = [super init])) return nil;
 
@@ -46,7 +46,7 @@
     return self;
 }
 
--(id) initWithHeaderData: (NSData*)data andOffset: (UInt64)off
+-(instancetype) initWithHeaderData: (NSData*)data andOffset: (UInt64)off
 {
     UInt32 lLength;
     if (!(self = [super init])) return nil;

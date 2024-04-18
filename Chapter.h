@@ -33,7 +33,7 @@
 @property (copy) NSString *name;
 @property (retain) NSMutableArray *files;
 
-- (id) copy;
+- (instancetype) copy;
 - (void) addFile:(AudioFile *)file;
 - (void) addFiles:(NSArray *)newFiles;
 - (BOOL) containsFile:(AudioFile*)file;

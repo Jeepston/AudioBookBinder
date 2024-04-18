@@ -391,17 +391,17 @@
     _draggedNodes = [items copy]; 
     
     // Provide data for our custom type, and simple NSStrings.    
-    [pboard declareTypes:[NSArray arrayWithObjects:SIMPLE_BPOARD_TYPE, NSStringPboardType, NSFilesPromisePboardType, nil] 
+    [pboard declareTypes:[NSArray arrayWithObjects:SIMPLE_BPOARD_TYPE, NSPasteboardTypeString, kPasteboardTypeFileURLPromise, nil] 
                    owner:self];
     
     // the actual data doesn't matter since SIMPLE_BPOARD_TYPE drags aren't recognized by anyone but us!.
     [pboard setData:[NSData data] forType:SIMPLE_BPOARD_TYPE]; 
     
     // Put string data on the pboard... notice you can drag into TextEdit!
-    [pboard setString:[_draggedNodes description] forType:NSStringPboardType];
+    [pboard setString:[_draggedNodes description] forType:NSPasteboardTypeString];
     
     // Put the promised type we handle on the pasteboard.
-    [pboard setPropertyList:[NSArray arrayWithObjects:@"txt", nil] forType:NSFilesPromisePboardType];
+    [pboard setPropertyList:[NSArray arrayWithObjects:@"txt", nil] forType:kPasteboardTypeFileURLPromise];
 
     return YES;
 }

@@ -37,6 +37,6 @@
 @property(readwrite, copy) NSString *name;
 @property(readwrite, copy) NSString *album;
 
-- (id) initWithPath:(NSString*)path;
+- (instancetype) initWithPath:(NSString*)path;
 
 @end

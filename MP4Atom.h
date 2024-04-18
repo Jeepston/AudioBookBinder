@@ -38,8 +38,8 @@
 @property (assign) UInt32 length;
 @property (assign) UInt64 offset;
 
--(id) initWithName:(NSString*)atom andLength:(UInt32)length;
--(id) initWithHeaderData:(NSData*)data andOffset: (UInt64)offset;
+-(instancetype) initWithName:(NSString*)atom andLength:(UInt32)length;
+-(instancetype) initWithHeaderData:(NSData*)data andOffset: (UInt64)offset;
 -(NSData*) encode;
 
 @end

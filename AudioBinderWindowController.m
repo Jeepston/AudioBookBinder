@@ -44,6 +44,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#import "AudioBookBinder-Swift.h"
+
 // localized strings
 #define TEXT_CONVERSION_FAILED  NSLocalizedString(@"Audiofile conversion failed", nil)
 #define TEXT_BINDING_FAILED     NSLocalizedString(@"Audiobook binding failed", nil)
@@ -88,10 +90,10 @@ column_t columnDefs[] = {
     {nil, nil}
 };
 
-enum abb_form_fields {
-    ABBAuthor = 0,
-    ABBTitle,
-};
+//enum abb_form_fields {
+//    ABBAuthor = 0,
+//    ABBTitle,
+//};
 
 @interface AudioBinderWindowController () {
     NSURL *_destURL;
@@ -123,7 +125,7 @@ enum abb_form_fields {
 
 @implementation AudioBinderWindowController
 
-- (id)initWithWindow:(NSWindow *)window
+- (instancetype)initWithWindow:(NSWindow *)window
 {
     self = [super initWithWindow:window];
 
@@ -150,7 +152,7 @@ enum abb_form_fields {
     [fileListView setDataSource:fileList];
     [fileListView setDelegate:fileList];
     [fileListView setAllowsMultipleSelection:YES];
-    [fileListView registerForDraggedTypes:[NSArray arrayWithObjects:NSStringPboardType, NSFilenamesPboardType, nil]];
+    [fileListView registerForDraggedTypes:[NSArray arrayWithObjects:NSPasteboardTypeString, NSFilenamesPboardType, nil]];
     [fileListView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
     [fileListView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     [fileListView setAutoresizesOutlineColumn:NO];
@@ -277,7 +279,7 @@ enum abb_form_fields {
         NSMenuItem *item = [tableHeaderContextMenu addItemWithTitle:title action:@selector(contextMenuSelected:) keyEquivalent:@""];
         [item setTarget:self];
         [item setRepresentedObject:columnDefs[idx].id];
-        [item setState:columnDefs[idx].enabled?NSOnState:NSOffState];
+        [item setState:columnDefs[idx].enabled?NSControlStateValueOn:NSControlStateValueOff];
     }
     
     
@@ -365,7 +367,7 @@ enum abb_form_fields {
     [openDlg setCanChooseDirectories:YES];
     [openDlg setAllowsMultipleSelection:YES];
 
-    if ( [openDlg runModal] == NSOKButton )
+    if ( [openDlg runModal] == NSModalResponseOK )
     {
         BOOL sortFiles = [[NSUserDefaults standardUserDefaults] boolForKey:kConfigSortAudioFiles];
         NSArray *urls;
@@ -438,7 +440,7 @@ enum abb_form_fields {
     
     
     /* if successful, save file under designated name */
-    if (choice == NSOKButton)
+    if (choice == NSModalResponseOK)
     {
         [bindButton setEnabled:FALSE];
         outFile = [[savePanel URL] path];
@@ -498,7 +500,7 @@ enum abb_form_fields {
         [a addButtonWithTitle:TEXT_CANCEL];
         
         [a setMessageText:TEXT_FILE_EXISTS];
-        [a setAlertStyle:NSWarningAlertStyle];
+        [a setAlertStyle:NSAlertStyleWarning];
         [a setInformativeText: [NSString stringWithFormat:TEXT_FILE_OVERWRITE, outFile]];
         NSInteger result = [a runModal];
         if (result == NSAlertSecondButtonReturn) {
@@ -527,7 +529,7 @@ enum abb_form_fields {
     [openDlg setCanChooseDirectories:NO];
     [openDlg setAllowsMultipleSelection:NO];
     
-    if ( [openDlg runModal] == NSOKButton )
+    if ( [openDlg runModal] == NSModalResponseOK )
     {
         NSURL *url = [openDlg URL];
         
@@ -698,7 +700,7 @@ enum abb_form_fields {
                         [alert addButtonWithTitle:@"OK"];
                         [alert setMessageText:TEXT_CANT_SPLIT];
                         [alert setInformativeText:msg];
-                        [alert setAlertStyle:NSWarningAlertStyle];
+                        [alert setAlertStyle:NSAlertStyleWarning];
                         [alert runModal];
                     });
                     return;
@@ -754,7 +756,7 @@ enum abb_form_fields {
                             NSData *imgData = [coverImage TIFFRepresentation];
                             NSDictionary *dict = [[NSDictionary alloc] init];
                             [[[NSBitmapImageRep imageRepWithData:imgData]
-                              representationUsingType:NSPNGFileType properties:dict]
+                              representationUsingType:NSBitmapImageFileTypePNG properties:dict]
                              writeToFile:coverImageFilename atomically:YES];
                             temporaryFile = YES;
                         }
@@ -882,7 +884,7 @@ enum abb_form_fields {
         [alert addButtonWithTitle:@"OK"];
         [alert setMessageText:TEXT_CONVERSION_FAILED];
         [alert setInformativeText:reason];
-        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert setAlertStyle:NSAlertStyleWarning];
         [alert runModal];
     });
     return NO;
@@ -896,7 +898,7 @@ enum abb_form_fields {
         [alert addButtonWithTitle:@"OK"];
         [alert setMessageText:TEXT_BINDING_FAILED];
         [alert setInformativeText:reason];
-        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert setAlertStyle:NSAlertStyleWarning];
         [alert runModal];
     });
 }
@@ -970,7 +972,7 @@ enum abb_form_fields {
     [alert addButtonWithTitle:@"OK"];
     [alert setMessageText:TEXT_FAILED_TO_PLAY];
     [alert setInformativeText:msg];
-    [alert setAlertStyle:NSWarningAlertStyle];
+    [alert setAlertStyle:NSAlertStyleWarning];
     [alert runModal];
 }
 
@@ -979,8 +981,8 @@ enum abb_form_fields {
 - (void)contextMenuSelected:(id)sender
 {
     NSMenuItem *item = sender;
-    if (item.state == NSOffState) {
-        [item setState:NSOnState];
+    if (item.state == NSControlStateValueOff) {
+        [item setState:NSControlStateValueOn];
         
         BOOL found = NO;
         int idx;
@@ -1003,7 +1005,7 @@ enum abb_form_fields {
         if (c) {
             [fileListView removeTableColumn:c];
         }
-        [item setState:NSOffState];
+        [item setState:NSControlStateValueOff];
     }
     
 }
@@ -1131,7 +1133,7 @@ enum abb_form_fields {
     [panel setCanChooseDirectories: YES];
     [panel setCanCreateDirectories: YES];
     [panel beginSheetModalForWindow:saveAsPanel completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             NSURL *folderURL = [panel URL];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 

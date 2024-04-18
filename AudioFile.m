@@ -25,7 +25,7 @@
 //  SUCH DAMAGE.
 //
 
-#import <AudioToolbox/AudioToolbox.h>
+@import AudioToolbox;
 
 #import "AudioFile.h"
 
@@ -35,7 +35,7 @@
 
 @implementation AudioFile
 
-- (id) initWithPath:(NSString*)path
+- (instancetype) initWithPath:(NSString*)path
 {
     if ((self = [super init]))
     {
@@ -54,7 +54,6 @@
 
 - (void) updateInfo
 {
-    // NSString *extension = [[self.filePath pathExtension] lowercaseString];
     OSStatus status;
     AudioFileID audioFile;
     CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault,

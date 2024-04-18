@@ -25,21 +25,21 @@
 //  SUCH DAMAGE.
 //
 
-#import "AudioBookVolume.h"
-
-@implementation AudioBookVolume
-
-- (id)initWithName:(NSString*)name files:(NSArray*)files
-{
-    _filename = nil;
-    _inputFiles = nil;
-    
-    if (self = [super init]) {
-       _filename = [[NSString alloc] initWithString:name];
-       _inputFiles = [[NSArray alloc] initWithArray:files];
-    }
-    
-    return self;
-}
-
-@end
+//#import "AudioBookVolume.h"
+//
+//@implementation AudioBookVolume
+//
+//- (instancetype)initWithName:(NSString*)name files:(NSArray*)files
+//{
+//    _filename = nil;
+//    _inputFiles = nil;
+//    
+//    if (self = [super init]) {
+//       _filename = [[NSString alloc] initWithString:name];
+//       _inputFiles = [[NSArray alloc] initWithArray:files];
+//    }
+//    
+//    return self;
+//}
+//
+//@end

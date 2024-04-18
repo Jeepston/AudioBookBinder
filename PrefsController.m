@@ -76,7 +76,7 @@
     [panel setCanCreateDirectories: YES];
     
     [panel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             NSURL *folderURL = [panel URL];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 #ifdef APP_STORE_BUILD

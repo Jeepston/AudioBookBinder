@@ -27,11 +27,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AudioBookVolume : NSObject
-
-@property (readonly) NSString *filename;
-@property (readonly) NSArray *inputFiles;
-
-- (id)initWithName:(NSString*)name files:(NSArray*)files;
-
-@end
+//@interface AudioBookVolume : NSObject
+//
+//@property (readonly) NSString *filename;
+//@property (readonly) NSArray *inputFiles;
+//
+//- (instancetype)initWithName:(NSString*)name files:(NSArray*)files;
+//
+//@end
