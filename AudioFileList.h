@@ -26,7 +26,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "AudioFile.h"
+//#import "AudioFile.h"
 #import "NSOutlineView_Extension.h"
 
 // the name should be the same as properties in AudioFile
@@ -35,6 +35,8 @@
 #define COLUMNID_AUTHOR         @"artist"
 #define COLUMNID_ALBUM          @"album"
 #define COLUMNID_TIME           @"duration"
+
+@class AudioFile;
 
 @interface AudioFileList : NSObject<NSOutlineViewDataSource, ExtendedNSOutlineViewDelegate> 
 

@@ -27,9 +27,7 @@
 
 #import "MP4Atom.h"
 
-@interface MP4Atom() {
-    NSArray *children;
-}
+@interface MP4Atom() { }
 
 @end
 

@@ -27,7 +27,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MP4Atom;
 
 @interface MP4File : NSObject
 

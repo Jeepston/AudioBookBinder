@@ -26,13 +26,8 @@
 //
 
 #import "AudioBinder.h"
-#import "AudioBookVolume.h"
-#import "AudioBookVolume.h"
 #import "AudioBinderWindowController.h"
 #import "AudioBookBinderAppDelegate.h"
-#import "AudioFile.h"
-#import "Chapter.h"
-#import "Chapter.h"
 #import "ConfigNames.h"
 #import "ExpandedPathToIconTransformer.h"
 #import "ExpandedPathToPathTransformer.h"
@@ -40,9 +35,9 @@
 #import "MetaEditor.h"
 #import "NSOutlineView_Extension.h"
 #import "StatsManager.h"
-#import "QueueController.h"
 
 #import <QuartzCore/QuartzCore.h>
+@import UserNotifications;
 
 #import "AudioBookBinder-Swift.h"
 
@@ -152,7 +147,7 @@ column_t columnDefs[] = {
     [fileListView setDataSource:fileList];
     [fileListView setDelegate:fileList];
     [fileListView setAllowsMultipleSelection:YES];
-    [fileListView registerForDraggedTypes:[NSArray arrayWithObjects:NSPasteboardTypeString, NSFilenamesPboardType, nil]];
+    [fileListView registerForDraggedTypes: @[NSPasteboardTypeString, NSPasteboardTypeFileURL]];
     [fileListView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
     [fileListView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
     [fileListView setAutoresizesOutlineColumn:NO];
@@ -598,7 +593,7 @@ column_t columnDefs[] = {
         notification.subtitle = [outFile lastPathComponent];
         notification.soundName = NSUserNotificationDefaultSoundName;
         
-        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+        [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification: notification];
     }
     
     [bindButton setEnabled:TRUE];
@@ -648,7 +643,7 @@ column_t columnDefs[] = {
     
     if (hasChapters) {
         chapters = [fileList chapters];
-        curChapter = [[chapters objectAtIndex:chapterIdx] copy];
+        curChapter = [[chapters objectAtIndex:chapterIdx] copyChapter];
         chapterIdx++;
         [curChapters addObject:curChapter];
     }
@@ -666,7 +661,7 @@ column_t columnDefs[] = {
         if (hasChapters) {
             if (![curChapter containsFile:file]) {
                 NSLog(@"%@ -> next chapter", file.filePath);
-                curChapter = [[chapters objectAtIndex:chapterIdx] copy];
+                curChapter = [[chapters objectAtIndex:chapterIdx] copyChapter];
                 chapterIdx++;
                 onChapterBoundary = YES;
                 [curChapters addObject:curChapter];
@@ -674,7 +669,7 @@ column_t columnDefs[] = {
         }
         
         if (maxVolumeDuration) {
-            if ((estVolumeDuration + [file.duration intValue]) > maxVolumeDuration*1000) {
+            if ((estVolumeDuration + (UInt64)file.duration) > maxVolumeDuration*1000) {
                 if ([inputFiles count] > 0) {
                     [_binder addVolume:currentVolumeName files:inputFiles];
                     [inputFiles removeAllObjects];
@@ -696,7 +691,7 @@ column_t columnDefs[] = {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         NSAlert *alert = [[NSAlert alloc] init];
                         NSString *msg = [NSString stringWithFormat:TEXT_MAXDURATION_VIOLATED,
-                                     [file.filePath UTF8String], [file.duration intValue]/1000, maxVolumeDuration];
+                                     [file.filePath path], file.duration / 1000, maxVolumeDuration];
                         [alert addButtonWithTitle:@"OK"];
                         [alert setMessageText:TEXT_CANT_SPLIT];
                         [alert setInformativeText:msg];
@@ -709,8 +704,8 @@ column_t columnDefs[] = {
         }
         onChapterBoundary = NO;
         [inputFiles addObject:file];
-        estVolumeDuration += [file.duration intValue];
-        _totalBookDuration += [file.duration intValue];
+        estVolumeDuration += (UInt64)file.duration;
+        _totalBookDuration += (NSUInteger)file.duration;
     }
     
     [_binder addVolume:currentVolumeName files:inputFiles];
@@ -751,7 +746,7 @@ column_t columnDefs[] = {
                         [tempFileTemplate fileSystemRepresentation];
                         char *tempFileNameCString = (char *)malloc(strlen(tempFileTemplateCString) + 1);
                         strcpy(tempFileNameCString, tempFileTemplateCString);
-                        if (mktemp(tempFileNameCString)) {
+                        if (mkstemp(tempFileNameCString)) {
                             coverImageFilename = [NSString stringWithCString:tempFileNameCString encoding:NSUTF8StringEncoding];
                             NSData *imgData = [coverImage TIFFRepresentation];
                             NSDictionary *dict = [[NSDictionary alloc] init];
@@ -871,7 +866,7 @@ column_t columnDefs[] = {
     [self updateProgress:handledFrames total:totalFrames];
 
     if (totalFrames > 0) {
-        _currentFileProgress = [file.duration intValue]*handledFrames/totalFrames;
+        _currentFileProgress = (UInt64)file.duration  * handledFrames / totalFrames;
         [self recalculateProgress];
     }
 }
@@ -910,9 +905,9 @@ column_t columnDefs[] = {
         [self->fileProgress setDoubleValue:[self->fileProgress doubleValue]];
     });
     file.valid = YES;
-    file.duration = [[NSNumber alloc] initWithInt:milliseconds];
+    file.duration = (NSUInteger)milliseconds;
     if (_totalBookDuration > 0) {
-        _totalBookProgress += [file.duration intValue];
+        _totalBookProgress += (NSUInteger)file.duration;
         _currentFileProgress = 0;
         [self recalculateProgress];
     }
@@ -947,7 +942,7 @@ column_t columnDefs[] = {
         [playButton setImage:_stopImg] ;
         
         _playingFile = [file.filePath copy];
-        _sound = [[NSSound alloc] initWithContentsOfFile:file.filePath byReference:NO];
+        _sound = [[NSSound alloc] initWithContentsOfURL:file.filePath byReference:NO];
         [_sound setDelegate:self];
         if (![_sound play]) {
             [playButton setImage:_playImg] ;
@@ -1150,24 +1145,6 @@ column_t columnDefs[] = {
         [self->saveAsFolderPopUp selectItemAtIndex:0];
 
     }];
-}
-
-- (IBAction) toggleQueue: (id)sender
-{
-    AudioBookBinderAppDelegate *delegate = (AudioBookBinderAppDelegate *)[[NSApplication sharedApplication] delegate];
-
-    _enqueued = !_enqueued;
-    if (_enqueued) {
-        [delegate.queueController addBookWindowController:self];
-        // [_queueOverlay setFrame:self.window.contentView.frame];
-        // [self.window.contentView addSubview:_queueOverlay positioned:NSWindowAbove relativeTo:nil];
-        // [_queueOverlay becomeFirstResponder];
-    }
-    else {
-        // [_queueOverlay removeFromSuperview];
-        [delegate.queueController removeBookWindowController:self];
-    }
-    [self updateWindowTitle];
 }
 
 @end

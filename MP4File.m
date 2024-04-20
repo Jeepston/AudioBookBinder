@@ -25,12 +25,16 @@
 //  SUCH DAMAGE.
 //
 
-#import "ABBLog.h"
 #import "MP4Atom.h"
 #import "MP4File.h"
 
 // 16M seems to be reasonable buffer
 #define TMP_BUFFER_SIZE 16*1024*1024
+
+#define ITUNES_METADATA_IMPLICIT_CLASS  0x00
+#define ITUNES_METADATA_STRING_CLASS    0x01
+#define ITUNES_METADATA_IMAGE_CLASS     0x0e
+#define ITUNES_METADATA_UINT8_CLASS     0x15
 
 @interface MP4File() {
     NSFileHandle *_fh;

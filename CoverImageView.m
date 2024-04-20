@@ -50,8 +50,7 @@
         normalColor = [NSColor colorWithCalibratedWhite:0.4 alpha:1];
         [self prepareAttributes];
         string = NSLocalizedString(@"⌘ + I\nor\nDrag Image Here", nil);
-        [self registerForDraggedTypes:[NSArray arrayWithObjects:NSPasteboardTypeTIFF, 
-                                       NSFilenamesPboardType, nil]];
+        [self registerForDraggedTypes:@[NSPasteboardTypeTIFF, NSPasteboardTypeFileURL]];
         self.coverImageFilename = nil;
 
     }
@@ -277,8 +276,7 @@
     
     NSPasteboard *paste = [sender draggingPasteboard];
     //gets the dragging-specific pasteboard from the sender
-    NSArray *types = [NSArray arrayWithObjects:NSPasteboardTypeTIFF, 
-                      NSFilenamesPboardType, nil];
+    NSArray *types = @[NSPasteboardTypeTIFF, NSPasteboardTypeFileURL];
     //a list of types that we can accept
     NSString *desiredType = [paste availableTypeFromArray:types];
     NSData *carriedData = [paste dataForType:desiredType];
@@ -286,7 +284,7 @@
     if (nil == carriedData)
         return NSDragOperationNone;
 
-    if ([desiredType isEqualToString:NSFilenamesPboardType])
+    if ([desiredType isEqualToString:NSPasteboardTypeFileURL])
     {
         //we have a list of file names in an NSData object
         NSArray *fileArray = [paste propertyListForType:@"NSFilenamesPboardType"];
@@ -316,8 +314,7 @@
 {
     NSPasteboard *paste = [sender draggingPasteboard];
     //gets the dragging-specific pasteboard from the sender
-    NSArray *types = [NSArray arrayWithObjects:NSPasteboardTypeTIFF, 
-                      NSFilenamesPboardType, nil];
+    NSArray *types = @[NSPasteboardTypeTIFF, NSPasteboardTypeFileURL];
     //a list of types that we can accept
     NSString *desiredType = [paste availableTypeFromArray:types];
     NSData *carriedData = [paste dataForType:desiredType];
@@ -325,7 +322,8 @@
     if (nil == carriedData)
     {
         //the operation failed for some reason
-        NSRunAlertPanel(@"Paste Error", @"Sorry, but the past operation failed", 
+        
+        NSRunAlertPanel(@"Paste Error", @"Sorry, but the past operation failed",
                         nil, nil, nil);
         return NO;
     }
@@ -339,10 +337,11 @@
             //we have TIFF bitmap data in the NSData object
             newImage = [[NSImage alloc] initWithData:carriedData];
             self.coverImage = newImage;
-            if (newImage == nil)
+            if (newImage == nil) {
                 return NO;
+            }
         }
-        else if ([desiredType isEqualToString:NSFilenamesPboardType])
+        else if ([desiredType isEqualToString:NSPasteboardTypeFileURL])
         {
             //we have a list of file names in an NSData object
             NSArray *fileArray = [paste propertyListForType:@"NSFilenamesPboardType"];
@@ -353,8 +352,9 @@
             
             self.coverImageFilename = path;
             
-            if (self.coverImageFilename == nil)
+            if (self.coverImageFilename == nil) {
                 return NO;
+            }
         }
         else
         {

@@ -24,12 +24,6 @@
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Check for Updates..." id="737">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="checkForUpdates:" target="494" id="1053"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="236">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -96,11 +90,6 @@
                             <menuItem title="Make Audiobook" keyEquivalent="b" id="733">
                                 <connections>
                                     <action selector="bind:" target="-1" id="1056"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Queue" hidden="YES" enabled="NO" keyEquivalent="B" id="NU7-mu-vQz">
-                                <connections>
-                                    <action selector="toggleQueue:" target="-1" id="2AF-Yv-Ou4"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Reset" keyEquivalent="r" id="959">
@@ -175,12 +164,6 @@
                             <menuItem title="Zoom" id="239">
                                 <connections>
                                     <action selector="performZoom:" target="-1" id="240"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Queue" hidden="YES" id="eoB-Mx-Wtr">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="showQueueWindow:" target="494" id="uhg-ur-Mgx"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="92">

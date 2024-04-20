@@ -29,9 +29,11 @@
 #import <AudioToolbox/AudioFormat.h>
 #import <AudioToolbox/ExtendedAudioFile.h>
 
-#import "AudioFile.h"
+//#import "AudioFile.h"
 
 #define DEFAULT_SAMPLE_RATE 44100.f
+
+@class AudioFile;
 
 @protocol AudioBinderDelegate
 

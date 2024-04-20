@@ -63,7 +63,6 @@
 - (IBAction) delFiles: (id)sender;
 - (IBAction) setCover: (id)sender;
 - (IBAction) bind: (id)sender;
-- (IBAction) toggleQueue: (id)sender;
 - (IBAction) cancel: (id)sender;
 - (IBAction) toggleChapters: (id)sender;
 - (IBAction) joinFiles: (id)sender;

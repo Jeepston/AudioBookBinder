@@ -26,10 +26,10 @@
 //
 
 #import "AudioFileList.h"
-#import "AudioFile.h"
-#import "Chapter.h"
 #import "AudioBookBinderAppDelegate.h"
 #import "ConfigNames.h"
+
+#import "AudioBookBinder-Swift.h"
 
 // It is best to #define strings to avoid making typing errors
 #define SIMPLE_BPOARD_TYPE           @"MyCustomOutlineViewPboardType"
@@ -273,11 +273,11 @@
             objectValue = file.album;
         else if ([tableColumn.identifier isEqualToString:COLUMNID_TIME])
         {
-            UInt32 duration = [file.duration intValue];
+            NSInteger duration = file.duration;
             duration /= 1000;
-            int hours = duration / 3600;
-            int minutes = (duration - (hours * 3600)) / 60;
-            int seconds = duration % 60;
+            NSInteger hours = duration / 3600;
+            NSInteger minutes = (duration - (hours * 3600)) / 60;
+            NSInteger seconds = duration % 60;
             
             if (hours > 0)
                 objectValue = [NSString stringWithFormat:@"%d:%02d:%02d",
@@ -297,11 +297,11 @@
             return [chapter name];
         else if ([tableColumn.identifier isEqualToString:COLUMNID_TIME])
         {            
-            UInt32 duration = [chapter totalDuration];
+            NSInteger duration = [chapter totalDuration];
             duration /= 1000;
-            int hours = duration / 3600;
-            int minutes = (duration - (hours * 3600)) / 60;
-            int seconds = duration % 60;
+            NSInteger hours = duration / 3600;
+            NSInteger minutes = (duration - (hours * 3600)) / 60;
+            NSInteger seconds = duration % 60;
             
             if (hours > 0)
                 objectValue = [NSString stringWithFormat:@"%d:%02d:%02d",
@@ -523,7 +523,7 @@
     else {
         // drop from external source
         NSPasteboard *paste = [info draggingPasteboard];    //gets the dragging-specific pasteboard from the sender
-        NSArray *types = [NSArray arrayWithObjects: NSFilenamesPboardType, nil];
+        NSArray *types = @[NSPasteboardTypeFileURL];
         //a list of types that we can accept
         NSString *desiredType = [paste availableTypeFromArray:types];
         NSData *carriedData = [paste dataForType:desiredType];
@@ -531,7 +531,7 @@
         if (nil == carriedData)
             return NSDragOperationNone;
         
-        if ([desiredType isEqualToString:NSFilenamesPboardType])
+        if ([desiredType isEqualToString:NSPasteboardTypeFileURL])
         {
             //we have a list of file names in an NSData object
             NSArray *fileArray;

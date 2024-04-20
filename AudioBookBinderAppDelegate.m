@@ -30,7 +30,6 @@
 #import "ExpandedPathToPathTransformer.h"
 #import "ExpandedPathToIconTransformer.h"
 #import "AudioBinderWindowController.h"
-#import "QueueController.h"
 #import "ConfigNames.h"
 
 #define TEXT_ACTION_REQUIRED    NSLocalizedString(@"User action required", nil)
@@ -148,7 +147,6 @@ static BOOL hackChecked = NO;
             }
         }
     }
-    self.queueController = [[QueueController alloc] initWithWindowNibName:@"QueueWindow"];
     
     [self newAudiobookWindow:nil];
 }
@@ -158,10 +156,7 @@ static BOOL hackChecked = NO;
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://bluezbox.com/audiobookbinder/chapters.html"]];
 }
 
-- (void) checkForUpdates:(id)sender
-{
 
-}
 - (IBAction) newAudiobookWindow: (id)sender
 {
     AudioBinderWindowController *controller = [[AudioBinderWindowController alloc] initWithWindowNibName:@"AudioBinderWindow"];
@@ -209,11 +204,6 @@ static BOOL hackChecked = NO;
     
     if (controller)
         [controller updateWindowTitle];
-}
-
-- (IBAction)showQueueWindow: (id)sender
-{
-    [self.queueController showWindow:nil];
 }
 
 @end

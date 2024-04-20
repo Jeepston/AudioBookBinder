@@ -25,21 +25,17 @@
 //  SUCH DAMAGE.
 //
 
-#import <CoreServices/CoreServices.h>
-#import <AudioToolbox/AudioConverter.h>
+@import CoreServices;
+@import AudioToolbox;
 
 #import "AudioBinder.h"
-//#import "AudioBookVolume.h"
-#import "ABBLog.h"
 #import "AudioBookBinder-Swift.h"
 
 // 1M seems to be sane buffer size nowadays
 #define AUDIO_BUFFER_SIZE 1*1024*1024
 
 // Helper function
-static NSString * 
-stringForOSStatus(OSStatus err)
-{
+static NSString * stringForOSStatus(OSStatus err) {
     // TODO: add proper description
     NSString * descString;
     BOOL isOSType = YES;
@@ -48,13 +44,11 @@ stringForOSStatus(OSStatus err)
     
     // Check if err is OSType and convert it to 4 chars representation
     osTypeRepr[4] = 0;
-    for (int i = 0; i < 4; i++)
-    {
+    for (int i = 0; i < 4; i++) {
         unsigned char c = (err >> 8*i) & 0xff;
-        if (isprint(c))
+        if (isprint(c)) {
             osTypeRepr[3-i] = c;
-        else
-        {
+        } else {
             isOSType = NO;
             break;
         }
@@ -98,10 +92,11 @@ stringForOSStatus(OSStatus err)
 
     NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:err userInfo:nil];
     const char *errDescr = isOSType ? (errStr ? errStr : osTypeRepr) : [error.description cStringUsingEncoding:NSUTF8StringEncoding];
-    if ((errDescr != nil) && (strlen(errDescr) > 0))
+    if ((errDescr != nil) && (strlen(errDescr) > 0)) {
         descString = [[NSString alloc] initWithFormat:@"err#%08lx (%s)", (long)err, errDescr];
-    else
+    } else {
         descString = [[NSString alloc] initWithFormat:@"err#%08lx ", (long)err];
+    }
     
     return descString;
 }
@@ -120,7 +115,7 @@ stringForOSStatus(OSStatus err)
 
 -(instancetype)init
 {
-    if ((self = [super init])) {
+    if (self = [super init]) {
         _volumes = [[NSMutableArray alloc] init];
         [self reset];
     }
@@ -159,20 +154,19 @@ stringForOSStatus(OSStatus err)
     int filesConverted = 0;
     for (AudioBookVolume *v in _volumes) {
     
-        if ([v.inputFiles count] == 0)
+        if (v.inputFiles.count == 0)
         {
-            ABBLog(@"No input files");
+            NSLog(@"No input files");
             [_delegate volumeFailed:v.filename reason:@"No input files"];
             return NO;
         }
 
         if ([self openOutFile:v.filename] == NO)
         {
-            ABBLog(@"Can't open output file");
+            NSLog(@"Can't open output file");
             [_delegate volumeFailed:v.filename reason:@"Can't create output file"];
             return NO;
         }
-
 
         for (AudioFile *inFile in v.inputFiles) {
             NSString *reason;
@@ -235,7 +229,7 @@ stringForOSStatus(OSStatus err)
         if (![[NSFileManager defaultManager] removeItemAtPath:outFile 
                                                       error:nil])
         {
-            ABBLog(@"Can't remove file %@", outFile);
+            NSLog(@"Can't remove file %@", outFile);
             return NO;
         }
     }    
@@ -253,7 +247,7 @@ stringForOSStatus(OSStatus err)
     
     if (status != noErr)
     {
-        ABBLog(@"Can't create output file %@: %@", 
+        NSLog(@"Can't create output file %@: %@",
               outFile, stringForOSStatus(status));
         return NO;
     }
@@ -290,8 +284,7 @@ stringForOSStatus(OSStatus err)
         
     @try {
 
-        id url = [NSURL fileURLWithPath:inFile.filePath];
-        status = ExtAudioFileOpenURL((__bridge CFURLRef)url, &inAudioFile);
+        status = ExtAudioFileOpenURL((__bridge CFURLRef)inFile.filePath, &inAudioFile);
         if (status != noErr)
             [NSException raise:@"ConvertException" 
                 format:@"ExtAudioFileOpenURL failed: %@", 

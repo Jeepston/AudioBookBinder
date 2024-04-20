@@ -23,6 +23,7 @@
  *****************************************************************************/
 
 #import "ExpandedPathToIconTransformer.h"
+@import UniformTypeIdentifiers;
 
 @implementation ExpandedPathToIconTransformer
 
@@ -38,19 +39,21 @@
 
 - (id) transformedValue: (id) value
 {
-    if (!value)
+    if (!value) {
         return nil;
+    }
     
     NSString * path = [value stringByExpandingTildeInPath];
     NSImage * icon;
 
     //show a folder icon if the folder doesn't exist
-    if ([[path pathExtension] isEqualToString: @""] && ![[NSFileManager defaultManager] fileExistsAtPath: path])
-        icon = [[NSWorkspace sharedWorkspace] iconForFileType: NSFileTypeForHFSTypeCode('fldr')];
-    else
+    if ([[path pathExtension] isEqualToString: @""] && ![[NSFileManager defaultManager] fileExistsAtPath: path]) {
+        icon = [NSWorkspace.sharedWorkspace iconForContentType: UTTypeFolder];
+    } else {
         icon = [[NSWorkspace sharedWorkspace] iconForFile: path];
+    }
     
-    [icon setSize: NSMakeSize(16.0, 16.0)];
+    icon.size = NSMakeSize(16.0, 16.0);
     
     return icon;
 }

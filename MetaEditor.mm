@@ -30,7 +30,7 @@ extern "C" {
 };
 
 #include <mp4v2/mp4v2.h>
-#import "Chapter.h"
+#import "AudioBookBinder-Swift.h"
 
 using namespace std;
 
@@ -72,7 +72,7 @@ int addChapters(const char *mp4, NSArray *chapters)
     for (Chapter *chapter in chapters) {
         MP4Chapter_t *chap = &mp4chapters[i];
         memset(chap, 0, sizeof(*chap));
-        chap->duration = [chapter totalDuration];
+        chap->duration = chapter.totalDuration;
         strncpy(chap->title,
                 [chapter.name UTF8String], sizeof(chap->title)-1);
         i++;

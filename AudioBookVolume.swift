@@ -1,6 +1,8 @@
+import Foundation
+
 
 @objc
-class AudioBookVolume: NSObject {
+final class AudioBookVolume: NSObject {
     @objc let filename: String
     @objc let inputFiles: [AudioFile]
     
