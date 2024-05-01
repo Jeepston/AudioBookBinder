@@ -28,9 +28,10 @@
 #import <Cocoa/Cocoa.h>
 
 #import "AudioFileList.h"
-#import "AudioBinder.h"
 #import "CoverImageView.h"
 #import "QueueOverlayView.h"
+
+#import "AudioBookBinder-Swift.h"
 
 @interface AudioBinderWindowController : NSWindowController<NSSoundDelegate, NSTextFieldDelegate, AudioBinderDelegate> {
     IBOutlet NSOutlineView *fileListView;

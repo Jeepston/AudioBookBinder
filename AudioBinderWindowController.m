@@ -25,7 +25,6 @@
 //  SUCH DAMAGE.
 //
 
-#import "AudioBinder.h"
 #import "AudioBinderWindowController.h"
 #import "AudioBookBinderAppDelegate.h"
 #import "ConfigNames.h"
@@ -623,7 +622,7 @@ column_t columnDefs[] = {
     NSLog(@"maxVolumeDuration == %lld", maxVolumeDuration);
     _conversionResult = NO;
     [_binder reset];
-    [_binder setDelegate:self];
+    _binder.delegate = self;
     
     // split output filename to base and extension in order to get
     // filenames for consecutive volume files

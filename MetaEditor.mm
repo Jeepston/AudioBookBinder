@@ -30,39 +30,43 @@ extern "C" {
 };
 
 #include <mp4v2/mp4v2.h>
+#import "AudioToolbox/AudioToolbox.h"
 #import "AudioBookBinder-Swift.h"
 
 using namespace std;
 
 int addChapters(const char *mp4, NSArray *chapters)
 {
-    NSUInteger numChapters = [chapters count];
-    if (numChapters == 0)
-        return (0);
+    NSUInteger numChapters = chapters.count;
+    if (numChapters == 0) {
+        return 0;
+    }
     
-    MP4FileHandle h = MP4Modify( mp4 );
+    MP4FileHandle h = MP4Modify(mp4);
     
-    if( h == MP4_INVALID_FILE_HANDLE )
+    if (h == MP4_INVALID_FILE_HANDLE) {
         return -1;
+    }
 
     
     MP4TrackId refTrackId = MP4_INVALID_TRACK_ID;
-    uint32_t trackCount = MP4GetNumberOfTracks( h );
+    uint32_t trackCount = MP4GetNumberOfTracks(h);
 
-    for( uint32_t i = 0; i < trackCount; ++i ) {
-        MP4TrackId    id = MP4FindTrackId( h, i );
-        const char* type = MP4GetTrackType( h, id );
-        if( MP4_IS_AUDIO_TRACK_TYPE( type ) ) {
+    for (uint32_t i = 0; i < trackCount; ++i) {
+        MP4TrackId    id = MP4FindTrackId(h, i);
+        const char* type = MP4GetTrackType(h, id);
+        if (MP4_IS_AUDIO_TRACK_TYPE( type )) {
             refTrackId = id;
             break;
         }
     }
     
-    if( !MP4_IS_VALID_TRACK_ID(refTrackId) )
+    if (!MP4_IS_VALID_TRACK_ID(refTrackId)) {
         return -1;
+    }
 
-    MP4Duration trackDuration = MP4GetTrackDuration( h, refTrackId ); 
-    uint32_t trackTimeScale = MP4GetTrackTimeScale( h, refTrackId );
+    MP4Duration trackDuration = MP4GetTrackDuration(h, refTrackId);
+    uint32_t trackTimeScale = MP4GetTrackTimeScale(h, refTrackId);
 
     trackDuration /= trackTimeScale;
     MP4Chapter_t *mp4chapters;
@@ -73,8 +77,7 @@ int addChapters(const char *mp4, NSArray *chapters)
         MP4Chapter_t *chap = &mp4chapters[i];
         memset(chap, 0, sizeof(*chap));
         chap->duration = chapter.totalDuration;
-        strncpy(chap->title,
-                [chapter.name UTF8String], sizeof(chap->title)-1);
+        strncpy(chap->title, [chapter.name UTF8String], sizeof(chap->title)-1);
         i++;
     }
     

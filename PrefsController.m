@@ -26,8 +26,9 @@
 //
 
 #import "PrefsController.h"
-#import "AudioBinder.h"
 #import "ConfigNames.h"
+
+@import AudioToolbox;
 
 #define DESTINATION_FOLDER 0
 #define DESTINATION_ITUNES 2
@@ -99,14 +100,116 @@
 
 - (void) updateValidBitrates
 {
-    // Initialize samplerate/channels -> avail bitrates
-    AudioBinder *tmpBinder = [[AudioBinder alloc] init];
-    
     // setup channels/samplerate
-    tmpBinder.channels = (UInt32)[[NSUserDefaults standardUserDefaults] integerForKey:kConfigChannels];
-    tmpBinder.sampleRate = [[NSUserDefaults standardUserDefaults] floatForKey:kConfigSampleRate];
-    self.validBitrates = [[NSArray alloc] initWithArray:[tmpBinder validBitrates] copyItems:YES];
+    UInt32 channels = (UInt32)[[NSUserDefaults standardUserDefaults] integerForKey:kConfigChannels];
+    float sampleRate = [[NSUserDefaults standardUserDefaults] floatForKey:kConfigSampleRate];
+    self.validBitrates = [[NSArray alloc] initWithArray:[self allValidBitratesForSampleRate: sampleRate channels: channels] copyItems:YES];
     [self fixupBitrate];
+}
+
+-(NSArray*) allValidBitratesForSampleRate: (float) sampleRate channels: (UInt32) channels
+{
+    OSStatus status;
+    ExtAudioFileRef tmpAudioFile;
+    AudioConverterRef outConverter;
+    NSMutableArray *validBitrates = [[NSMutableArray alloc] init];
+    UInt32 size;
+    
+    AudioStreamBasicDescription outputFormat, pcmFormat;
+    
+    // open out file
+    NSString *dir = NSTemporaryDirectory();
+    NSString *file = [dir stringByAppendingFormat:@"/%@",
+                      [[NSProcessInfo processInfo] globallyUniqueString]];
+
+    
+    memset(&outputFormat, 0, sizeof(AudioStreamBasicDescription));
+    outputFormat.mSampleRate = sampleRate;
+    outputFormat.mFormatID = kAudioFormatMPEG4AAC;
+    outputFormat.mChannelsPerFrame = channels;
+    
+    id url = [NSURL fileURLWithPath:file];
+    status = ExtAudioFileCreateWithURL((__bridge CFURLRef)url,
+                                   kAudioFileMPEG4Type, &outputFormat,
+                                   NULL, kAudioFileFlags_EraseFile, &tmpAudioFile);
+    
+    if (status != noErr)
+        return validBitrates;
+    
+    // Setup input format descriptor, preserve mSampleRate
+    bzero(&pcmFormat, sizeof(pcmFormat));
+    pcmFormat.mSampleRate = sampleRate;
+    pcmFormat.mFormatID = kAudioFormatLinearPCM;
+    pcmFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger
+                                | kAudioFormatFlagIsBigEndian
+                                | kAudioFormatFlagIsPacked;
+    
+    pcmFormat.mBitsPerChannel = 16;
+    pcmFormat.mChannelsPerFrame = channels;
+    pcmFormat.mFramesPerPacket = 1;
+    pcmFormat.mBytesPerPacket =
+    (pcmFormat.mBitsPerChannel / 8) * pcmFormat.mChannelsPerFrame;
+    pcmFormat.mBytesPerFrame =
+    pcmFormat.mBytesPerPacket * pcmFormat.mFramesPerPacket;
+    
+    status = ExtAudioFileSetProperty(tmpAudioFile,
+                                     kExtAudioFileProperty_ClientDataFormat,
+                                     sizeof(pcmFormat), &pcmFormat);
+
+    if(status != noErr) {
+        ExtAudioFileDispose(tmpAudioFile);
+        [[NSFileManager defaultManager] removeItemAtPath:file error:nil];
+        return validBitrates;
+    }
+    
+    // Get the underlying AudioConverterRef
+    size = sizeof(AudioConverterRef);
+    status = ExtAudioFileGetProperty(tmpAudioFile,
+                                     kExtAudioFileProperty_AudioConverter,
+                                     &size, &outConverter);
+    
+    if(status != noErr) {
+        ExtAudioFileDispose(tmpAudioFile);
+        [[NSFileManager defaultManager] removeItemAtPath:file error:nil];
+        return validBitrates;
+    }
+    
+    size = 0;
+    // Get the available bitrates (CBR)
+    status = AudioConverterGetPropertyInfo(outConverter,
+                                           kAudioConverterApplicableEncodeBitRates,
+                                           &size, NULL);
+    if(noErr != status) {
+        ExtAudioFileDispose(tmpAudioFile);
+        [[NSFileManager defaultManager] removeItemAtPath:file error:nil];
+        return validBitrates;
+    }
+
+    AudioValueRange *bitrates = malloc(size);
+    NSCAssert(NULL != bitrates,
+              NSLocalizedStringFromTable(@"Unable to allocate memory.", @"Exceptions", @""));
+    
+    status = AudioConverterGetProperty(outConverter,
+                                       kAudioConverterApplicableEncodeBitRates,
+                                       &size, bitrates);
+
+    if(noErr == status) {
+        int bitrateCount = size / sizeof(AudioValueRange);
+
+        for(int n = 0; n < bitrateCount; ++n) {
+            unsigned long minRate = (unsigned long) bitrates[n].mMinimum;
+            if(0 != minRate) {
+                [validBitrates addObject:[NSNumber numberWithUnsignedLong: minRate]];
+            }
+        }
+    }
+    
+    free(bitrates);
+    
+    ExtAudioFileDispose(tmpAudioFile);
+    [[NSFileManager defaultManager] removeItemAtPath:file error:nil];
+
+    return validBitrates;
 }
 
 - (void) fixupBitrate

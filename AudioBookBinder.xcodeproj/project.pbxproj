@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A1AA01F2BE7A3FA00CACF68 /* AudioBookError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1AA01E2BE7A3FA00CACF68 /* AudioBookError.swift */; };
+		3A46C8FD2BDEC191005E387B /* AudioBinderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A46C8FC2BDEC168005E387B /* AudioBinderDelegate.swift */; };
 		3AAF93A52BD161BA00C3C636 /* AudioBookVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1316CE2BD15D4300575704 /* AudioBookVolume.swift */; };
+		3AB237472BE238F90021F846 /* AudioBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB237462BE238F90021F846 /* AudioBinder.swift */; };
 		3ACE87E32BD193550099F439 /* AudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACE87E02BD1680B0099F439 /* AudioFile.swift */; };
 		3ACE87E52BD289D10099F439 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACE87E42BD289D10099F439 /* Chapter.swift */; };
 		9F1FFD5D185D6F8F005EF748 /* AudioBinderWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F1FFD5C185D6F8F005EF748 /* AudioBinderWindowController.m */; };
@@ -158,7 +161,6 @@
 		9F4D516D2930708C00EC5662 /* libmp4v2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F4D50302930600600EC5662 /* libmp4v2.a */; };
 		9F62872C1194D502000D3A05 /* CoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F62872B1194D502000D3A05 /* CoverImageView.m */; };
 		9F695F0E1D87ACFD000C9493 /* AudioBookBinder-InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F695F101D87ACFD000C9493 /* AudioBookBinder-InfoPlist.strings */; };
-		9F6FA21611191A020047728F /* AudioBinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F02CE11101EA8B100AE315D /* AudioBinder.m */; };
 		9F6FA21711191A020047728F /* MP4Atom.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F86C0CE1023D99300E65B00 /* MP4Atom.m */; };
 		9F6FA21811191A020047728F /* MP4File.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F86C0D11023DAC000E65B00 /* MP4File.m */; };
 		9F6FA3A011191A4D0047728F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
@@ -213,10 +215,11 @@
 		32A70AAB03705E1F00C91783 /* AudioBookBinder_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioBookBinder_Prefix.pch; sourceTree = "<group>"; };
 		3A1316CD2BD15D4300575704 /* abbinder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "abbinder-Bridging-Header.h"; sourceTree = "<group>"; };
 		3A1316CE2BD15D4300575704 /* AudioBookVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBookVolume.swift; sourceTree = "<group>"; };
+		3A1AA01E2BE7A3FA00CACF68 /* AudioBookError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBookError.swift; sourceTree = "<group>"; };
+		3A46C8FC2BDEC168005E387B /* AudioBinderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBinderDelegate.swift; sourceTree = "<group>"; };
+		3AB237462BE238F90021F846 /* AudioBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBinder.swift; sourceTree = "<group>"; };
 		3ACE87E02BD1680B0099F439 /* AudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFile.swift; sourceTree = "<group>"; };
 		3ACE87E42BD289D10099F439 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
-		9F02CE10101EA8B100AE315D /* AudioBinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioBinder.h; sourceTree = "<group>"; };
-		9F02CE11101EA8B100AE315D /* AudioBinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioBinder.m; sourceTree = "<group>"; };
 		9F02CE18101EABCD00AE315D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = /System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<absolute>"; };
 		9F02CE4B101EBB9600AE315D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		9F02D006102161FD00AE315D /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
@@ -477,8 +480,9 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				3AB237452BE236990021F846 /* Extensions */,
 				3A1316CC2BD007C500575704 /* AudioBookBinder */,
-				3A1316CA2BD0072100575704 /* Shared */,
+				3A1316CA2BD0072100575704 /* Model */,
 				32A70AAB03705E1F00C91783 /* AudioBookBinder_Prefix.pch */,
 			);
 			name = Source;
@@ -505,11 +509,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3A1316CA2BD0072100575704 /* Shared */ = {
+		3A1316CA2BD0072100575704 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9F02CE10101EA8B100AE315D /* AudioBinder.h */,
-				9F02CE11101EA8B100AE315D /* AudioBinder.m */,
+				3A46C8FC2BDEC168005E387B /* AudioBinderDelegate.swift */,
+				3AB237462BE238F90021F846 /* AudioBinder.swift */,
 				3A1316CE2BD15D4300575704 /* AudioBookVolume.swift */,
 				3ACE87E02BD1680B0099F439 /* AudioFile.swift */,
 				3ACE87E42BD289D10099F439 /* Chapter.swift */,
@@ -520,8 +524,9 @@
 				9F86C0D01023DAC000E65B00 /* MP4File.h */,
 				9F86C0D11023DAC000E65B00 /* MP4File.m */,
 				3A1316CD2BD15D4300575704 /* abbinder-Bridging-Header.h */,
+				3A1AA01E2BE7A3FA00CACF68 /* AudioBookError.swift */,
 			);
-			name = Shared;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		3A1316CC2BD007C500575704 /* AudioBookBinder */ = {
@@ -551,6 +556,13 @@
 				9FB964F21CD81F9A0028268F /* ConfigNames.h */,
 			);
 			name = AudioBookBinder;
+			sourceTree = "<group>";
+		};
+		3AB237452BE236990021F846 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		9F4D50362930604C00EC5662 /* third_party */ = {
@@ -1076,11 +1088,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F6FA21611191A020047728F /* AudioBinder.m in Sources */,
+				3AB237472BE238F90021F846 /* AudioBinder.swift in Sources */,
 				9F6FA21711191A020047728F /* MP4Atom.m in Sources */,
 				9F6FA21811191A020047728F /* MP4File.m in Sources */,
 				9F6FA3BE11191AEA0047728F /* AudioBookBinder.m in Sources */,
 				9F6FA3E4111BBD640047728F /* AudioBookBinderAppDelegate.m in Sources */,
+				3A1AA01F2BE7A3FA00CACF68 /* AudioBookError.swift in Sources */,
 				3ACE87E52BD289D10099F439 /* Chapter.swift in Sources */,
 				9F6FA411111D161A0047728F /* AudioFileList.m in Sources */,
 				3ACE87E32BD193550099F439 /* AudioFile.swift in Sources */,
@@ -1094,6 +1107,7 @@
 				9F1FFD5D185D6F8F005EF748 /* AudioBinderWindowController.m in Sources */,
 				9F1FFD681862A27D005EF748 /* StatsManager.m in Sources */,
 				3AAF93A52BD161BA00C3C636 /* AudioBookVolume.swift in Sources */,
+				3A46C8FD2BDEC191005E387B /* AudioBinderDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1210,6 +1224,11 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fcxx-modules",
+					"-fmodules",
+				);
 				OTHER_LDFLAGS = "";
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = AudioBookBinder;
@@ -1261,6 +1280,11 @@
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fcxx-modules",
+					"-fmodules",
+				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = abbinder;
 				SDKROOT = macosx;
@@ -1413,7 +1437,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
-				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -1454,7 +1477,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				OTHER_CFLAGS = "";
 				OTHER_CODE_SIGN_FLAGS = "--deep";
-				OTHER_CPLUSPLUSFLAGS = "";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -1515,6 +1537,11 @@
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-fcxx-modules",
+					"-fmodules",
+				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = abbinder;
 				SDKROOT = macosx;

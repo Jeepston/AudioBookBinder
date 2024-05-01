@@ -26,7 +26,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-//#import "AudioFile.h"
 #import "NSOutlineView_Extension.h"
 
 // the name should be the same as properties in AudioFile
