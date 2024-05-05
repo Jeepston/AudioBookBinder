@@ -101,7 +101,6 @@ column_t columnDefs[] = {
     NSImage *_playImg, *_stopImg;
     BOOL _conversionResult;
     AudioFileList *fileList;
-    // QueueOverlayView *_queueOverlay;
     
     NSMutableArray *currentColumns;
 
@@ -197,7 +196,6 @@ column_t columnDefs[] = {
     AudioBookBinderAppDelegate *delegate = (AudioBookBinderAppDelegate*)[[NSApplication sharedApplication] delegate];
     [self.window setDelegate:delegate];
     
-    // _queueOverlay = [[QueueOverlayView alloc] init];
 }
 
 - (void)setupColumns {

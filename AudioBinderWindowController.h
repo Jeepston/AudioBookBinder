@@ -29,7 +29,6 @@
 
 #import "AudioFileList.h"
 #import "CoverImageView.h"
-#import "QueueOverlayView.h"
 
 #import "AudioBookBinder-Swift.h"
 

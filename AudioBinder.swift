@@ -305,7 +305,7 @@ final class AudioBinder: NSObject {
                 }
             }
 
-            guard var outAudioFile else {
+            guard let outAudioFile else {
                 throw AudioBookError.conversionError("Can't set ClientDataFormat: \(osStatusStringDescription(status))")
             }
             
