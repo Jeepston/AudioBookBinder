@@ -180,7 +180,6 @@
 		9FAB146D11619F9F00A2F36A /* ExpandedPathToIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB146A11619F9F00A2F36A /* ExpandedPathToIconTransformer.m */; };
 		9FAB146E11619F9F00A2F36A /* ExpandedPathToPathTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB146C11619F9F00A2F36A /* ExpandedPathToPathTransformer.m */; };
 		9FAB14821161A51400A2F36A /* PrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB14811161A51400A2F36A /* PrefsController.m */; };
-		9FB4DE0711C05C0E007B3DDE /* MetaEditor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FB4DE0611C05C0E007B3DDE /* MetaEditor.mm */; };
 		9FD5D3651CEA5146008B74AF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD5D3641CEA5146008B74AF /* QuartzCore.framework */; };
 		9FFED9901128C1AD00C3AFE6 /* NSOutlineView_Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FFED98F1128C1AD00C3AFE6 /* NSOutlineView_Extension.m */; };
 		9FFF519F12DC0D7000E3A54F /* audiobook.icns in Resources */ = {isa = PBXBuildFile; fileRef = 9FFF519E12DC0D7000E3A54F /* audiobook.icns */; };
@@ -420,8 +419,6 @@
 		9FAB14801161A51400A2F36A /* PrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefsController.h; sourceTree = "<group>"; };
 		9FAB14811161A51400A2F36A /* PrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefsController.m; sourceTree = "<group>"; };
 		9FAD311A173072A70067DF2F /* AudioBookBinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AudioBookBinder.entitlements; sourceTree = "<group>"; };
-		9FB4DE0511C05C0E007B3DDE /* MetaEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetaEditor.h; sourceTree = "<group>"; };
-		9FB4DE0611C05C0E007B3DDE /* MetaEditor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetaEditor.mm; sourceTree = "<group>"; };
 		9FB964F21CD81F9A0028268F /* ConfigNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigNames.h; sourceTree = "<group>"; };
 		9FD5D3641CEA5146008B74AF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9FFED98E1128C1AD00C3AFE6 /* NSOutlineView_Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSOutlineView_Extension.h; sourceTree = "<group>"; };
@@ -514,8 +511,6 @@
 				3A1316CE2BD15D4300575704 /* AudioBookVolume.swift */,
 				3ACE87E02BD1680B0099F439 /* AudioFile.swift */,
 				3ACE87E42BD289D10099F439 /* Chapter.swift */,
-				9FB4DE0511C05C0E007B3DDE /* MetaEditor.h */,
-				9FB4DE0611C05C0E007B3DDE /* MetaEditor.mm */,
 				9F86C0CD1023D99300E65B00 /* MP4Atom.h */,
 				9F86C0CE1023D99300E65B00 /* MP4Atom.m */,
 				9F86C0D01023DAC000E65B00 /* MP4File.h */,
@@ -1097,7 +1092,6 @@
 				9FAB146E11619F9F00A2F36A /* ExpandedPathToPathTransformer.m in Sources */,
 				9FAB14821161A51400A2F36A /* PrefsController.m in Sources */,
 				9F62872C1194D502000D3A05 /* CoverImageView.m in Sources */,
-				9FB4DE0711C05C0E007B3DDE /* MetaEditor.mm in Sources */,
 				9F1FFD5D185D6F8F005EF748 /* AudioBinderWindowController.m in Sources */,
 				9F1FFD681862A27D005EF748 /* StatsManager.m in Sources */,
 				3AAF93A52BD161BA00C3C636 /* AudioBookVolume.swift in Sources */,

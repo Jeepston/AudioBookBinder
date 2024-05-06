@@ -35,7 +35,9 @@
 #import "NSOutlineView_Extension.h"
 #import "StatsManager.h"
 
-#import <QuartzCore/QuartzCore.h>
+#include <mp4v2/mp4v2.h>
+
+@import QuartzCore;
 @import UserNotifications;
 
 #import "AudioBookBinder-Swift.h"
@@ -795,7 +797,8 @@ column_t columnDefs[] = {
                     [self updateProgressString:TEXT_ADDING_CHAPTERS];
                     int idx = 0;
                     for (AudioBookVolume *v in volumes) {
-                        addChapters([v.filename UTF8String], [volumeChapters objectAtIndex:idx]);
+                        [self addChapters:[volumeChapters objectAtIndex:idx] to:[v.filename UTF8String]];
+//                        addChapters([v.filename UTF8String], [volumeChapters objectAtIndex:idx]);
                         idx++;
                     }
                     
@@ -1142,6 +1145,59 @@ column_t columnDefs[] = {
         [self->saveAsFolderPopUp selectItemAtIndex:0];
 
     }];
+}
+
+
+- (int) addChapters: (NSArray *) chapters to: (const char *) mp4
+{
+    NSUInteger numChapters = chapters.count;
+    if (numChapters == 0) {
+        return 0;
+    }
+    
+    MP4FileHandle h = MP4Modify(mp4, 0);
+    
+    if (h == MP4_INVALID_FILE_HANDLE) {
+        return -1;
+    }
+
+    
+    MP4TrackId refTrackId = MP4_INVALID_TRACK_ID;
+    uint32_t trackCount = MP4GetNumberOfTracks(h, NULL, 0);
+
+    for (uint32_t i = 0; i < trackCount; ++i) {
+        MP4TrackId    id = MP4FindTrackId(h, i, NULL, 0);
+        const char* type = MP4GetTrackType(h, id);
+        if (MP4_IS_AUDIO_TRACK_TYPE( type )) {
+            refTrackId = id;
+            break;
+        }
+    }
+    
+    if (!MP4_IS_VALID_TRACK_ID(refTrackId)) {
+        return -1;
+    }
+
+    MP4Duration trackDuration = MP4GetTrackDuration(h, refTrackId);
+    uint32_t trackTimeScale = MP4GetTrackTimeScale(h, refTrackId);
+
+    trackDuration /= trackTimeScale;
+    MP4Chapter_t *mp4chapters;
+    
+    mp4chapters = (MP4Chapter_t*)malloc(numChapters * sizeof(MP4Chapter_t));
+    int i = 0;
+    for (Chapter *chapter in chapters) {
+        MP4Chapter_t *chap = &mp4chapters[i];
+        memset(chap, 0, sizeof(*chap));
+        chap->duration = chapter.totalDuration;
+        strncpy(chap->title, [chapter.name UTF8String], sizeof(chap->title)-1);
+        i++;
+    }
+    
+    MP4SetChapters(h, mp4chapters, (int)numChapters, MP4ChapterTypeQt);
+    MP4Close(h, 0);
+    
+    return 0;
 }
 
 @end
