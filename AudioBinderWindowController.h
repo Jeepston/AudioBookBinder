@@ -30,9 +30,7 @@
 #import "AudioFileList.h"
 #import "CoverImageView.h"
 
-#import "AudioBookBinder-Swift.h"
-
-@interface AudioBinderWindowController : NSWindowController<NSSoundDelegate, NSTextFieldDelegate, AudioBinderDelegate> {
+@interface AudioBinderWindowController : NSWindowController<NSSoundDelegate, NSTextFieldDelegate> {
     IBOutlet NSOutlineView *fileListView;
     IBOutlet NSButton *bindButton;
     IBOutlet NSProgressIndicator *fileProgress;
@@ -51,12 +49,17 @@
     IBOutlet NSPopUpButton *saveAsFolderPopUp;
 }
 
-@property (atomic, assign) NSUInteger currentProgress;
+@property (atomic, assign) NSUInteger currentProgress; // extract to protocol
 @property (retain) NSString *author;
 @property (retain) NSString *title;
 @property (retain) NSString *actor;
 @property (retain) NSString *genre;
 @property (retain) NSString *windowTitle;
+
+// private
+@property (atomic, assign) NSUInteger currentFileProgress;
+@property (atomic, assign) NSUInteger totalBookProgress;
+@property (atomic, assign) NSUInteger totalBookDuration;
 
 
 - (IBAction) addFiles: (id)sender;
@@ -74,5 +77,10 @@
 - (IBAction) folderSheetShow: (id) sender;
 
 - (void)updateWindowTitle;
+
+// private
+- (void) updateProgressString: (NSString*)message;
+- (void) updateProgress: (double)handledFrames total:(double)totalFrames;
+- (void) recalculateProgress;
 
 @end

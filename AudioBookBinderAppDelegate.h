@@ -26,7 +26,7 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 
 @interface AudioBookBinderAppDelegate : NSObject<NSWindowDelegate>
 

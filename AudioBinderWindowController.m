@@ -28,12 +28,7 @@
 #import "AudioBinderWindowController.h"
 #import "AudioBookBinderAppDelegate.h"
 #import "ConfigNames.h"
-#import "ExpandedPathToIconTransformer.h"
-#import "ExpandedPathToPathTransformer.h"
 #import "MP4File.h"
-#import "MetaEditor.h"
-#import "NSOutlineView_Extension.h"
-#import "StatsManager.h"
 
 #include <mp4v2/mp4v2.h>
 
@@ -106,9 +101,8 @@ column_t columnDefs[] = {
     
     NSMutableArray *currentColumns;
 
-    NSUInteger _currentFileProgress;
-    NSUInteger _totalBookProgress;
-    NSUInteger _totalBookDuration;
+    
+    
     BOOL _converting;
     BOOL _enqueued;
 }
@@ -653,7 +647,7 @@ column_t columnDefs[] = {
     _totalBookProgress = 0;
     self.currentProgress = 0;
 
-    [[StatsManager sharedInstance] updateConverter:self];
+    [[StatsManager shared] updateConverter:self];
     
     BOOL onChapterBoundary = YES;
     for (AudioFile *file in files) {
@@ -815,24 +809,13 @@ column_t columnDefs[] = {
         // write chapters
     }
 
-    [[StatsManager sharedInstance] removeConverter:self];
+    [[StatsManager shared] removeConverter:self];
        [self performSelectorOnMainThread:@selector(hideProgressPanel:) withObject:nil waitUntilDone:NO];
     [self performSelectorOnMainThread:@selector(bindingThreadIsDone:) withObject:nil waitUntilDone:NO];
 }
 
-//
-// AudioBinderDelegate methods
-//
--(void) conversionStart: (AudioFile*)file
-                 format: (AudioStreamBasicDescription*)asbd
-      formatDescription: (NSString*)description
-                 length: (UInt64)frames
 
-{
-    [self updateProgressString:[NSString stringWithFormat:TEXT_CONVERTING,
-                                 [file filePath]]];
-    [self updateProgress:0 total:frames];
-}
+// MARK: - AudioBinderDelegate methods
 
 - (void)recalculateProgress
 {
@@ -841,7 +824,7 @@ column_t columnDefs[] = {
         newProgress = floor((_currentFileProgress + _totalBookProgress)*100./_totalBookDuration);
     if (newProgress != self.currentProgress) {
         self.currentProgress = newProgress;
-        [[StatsManager sharedInstance] updateConverter:self];
+        [[StatsManager shared] updateConverter:self];
     }
 }
 
@@ -860,66 +843,7 @@ column_t columnDefs[] = {
     });
 }
 
--(void) updateStatus: (AudioFile *)file handled:(UInt64)handledFrames total:(UInt64)totalFrames
-{
-
-    [self updateProgress:handledFrames total:totalFrames];
-
-    if (totalFrames > 0) {
-        _currentFileProgress = (UInt64)file.duration  * handledFrames / totalFrames;
-        [self recalculateProgress];
-    }
-}
-
--(BOOL) continueFailedConversion:(AudioFile*)file reason:(NSString*)reason
-{
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert addButtonWithTitle:@"OK"];
-        [alert setMessageText:TEXT_CONVERSION_FAILED];
-        [alert setInformativeText:reason];
-        [alert setAlertStyle:NSAlertStyleWarning];
-        [alert runModal];
-    });
-    return NO;
-}
-
--(void) volumeFailed:(NSString*)filename reason:(NSString*)reason
-{
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert addButtonWithTitle:@"OK"];
-        [alert setMessageText:TEXT_BINDING_FAILED];
-        [alert setInformativeText:reason];
-        [alert setAlertStyle:NSAlertStyleWarning];
-        [alert runModal];
-    });
-}
-
-
--(void) conversionFinished:(AudioFile*)file duration:(UInt32)milliseconds
-{
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        [self->fileProgress setDoubleValue:[self->fileProgress doubleValue]];
-    });
-    file.valid = YES;
-    file.duration = (NSUInteger)milliseconds;
-    if (_totalBookDuration > 0) {
-        _totalBookProgress += (NSUInteger)file.duration;
-        _currentFileProgress = 0;
-        [self recalculateProgress];
-    }
-}
-
--(void) volumeReady:(NSString*)filename duration: (UInt32)seconds
-{
-}
-
--(void) audiobookReady:(UInt32)seconds
-{
-}
+// MARK: -
 
 - (IBAction) cancel: (id)sender
 {
@@ -1114,9 +1038,9 @@ column_t columnDefs[] = {
     return YES;
 }
 
-- (NSUInteger) totalBookProgress {
-    return _currentFileProgress + _totalBookProgress;
-}
+//- (NSUInteger) totalBookProgress {
+//    return _currentFileProgress + _totalBookProgress;
+//}
 
 - (IBAction)folderSheetShow: (id) sender
 {

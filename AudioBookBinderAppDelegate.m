@@ -27,10 +27,9 @@
 
 
 #import "AudioBookBinderAppDelegate.h"
-#import "ExpandedPathToPathTransformer.h"
-#import "ExpandedPathToIconTransformer.h"
 #import "AudioBinderWindowController.h"
 #import "ConfigNames.h"
+#import "AudioBookBinder-Swift.h"
 
 #define TEXT_ACTION_REQUIRED    NSLocalizedString(@"User action required", nil)
 

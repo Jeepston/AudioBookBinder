@@ -26,7 +26,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "NSOutlineView_Extension.h"
 
 // the name should be the same as properties in AudioFile
 #define COLUMNID_NAME           @"name"
@@ -37,7 +36,7 @@
 
 @class AudioFile;
 
-@interface AudioFileList : NSObject<NSOutlineViewDataSource, ExtendedNSOutlineViewDelegate> 
+@interface AudioFileList : NSObject<NSOutlineViewDataSource> 
 
 @property (readonly, getter=hasFiles) BOOL hasFiles;
 @property BOOL chapterMode;
@@ -67,7 +66,7 @@
 - (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item;
 
 // methods
-- (void)delKeyDown:(NSOutlineView *)outlineView;
+//- (void)delKeyDown:(NSOutlineView *)outlineView;
 - (BOOL)deleteSelected:(NSOutlineView *)outlineView;
 - (BOOL)joinSelectedFiles:(NSOutlineView *)outlineView;
 - (BOOL)splitSelectedFiles: (NSOutlineView*)outlineView;

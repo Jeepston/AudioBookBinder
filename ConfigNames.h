@@ -25,6 +25,8 @@
 //  SUCH DAMAGE.
 //
 
+// UserDefaults keys
+
 #ifndef __CONFIG_NAMES_H__
 #define __CONFIG_NAMES_H__
 
