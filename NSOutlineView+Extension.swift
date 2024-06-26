@@ -1,10 +1,4 @@
-//
-//  NSOutlineView+Extension.swift
-//  AudioBookBinder
-//
-//  Created by Dmitrij Hojkolov on 19.05.2024.
-//  Copyright © 2024 AudioBookBinder. All rights reserved.
-//
+
 
 import Cocoa
 
@@ -64,6 +58,10 @@ extension NSOutlineView {
         case NSDeleteFunctionKey, NSDeleteCharFunctionKey, NSDeleteCharacter:
             if let delKeyDelegate = self.delegate as? ExtendedNSOutlineViewDelegate {
                 delKeyDelegate.delKeyDown(self)
+            }
+        case NSEnterCharacter:
+            if let delKeyDelegate = self.delegate as? ExtendedNSOutlineViewDelegate {
+                delKeyDelegate.enterKetDown(self)
             }
         case NSLeftArrowFunctionKey:
             doCollapse()

@@ -27,7 +27,6 @@
 
 #import "AudioBinderWindowController.h"
 #import "AudioBookBinderAppDelegate.h"
-#import "ConfigNames.h"
 #import "MP4File.h"
 
 #include <mp4v2/mp4v2.h>
@@ -74,10 +73,10 @@ typedef struct
 } column_t;
 
 column_t columnDefs[] = {
-    {COLUMNID_FILE, @"File", NO},
-    {COLUMNID_AUTHOR, @"Author", NO},
-    {COLUMNID_ALBUM, @"Album", NO},
-    {COLUMNID_TIME, @"Time", NO},
+    {@"file", @"File", NO},
+    {@"artist", @"Author", NO},
+    {@"album", @"Album", NO},
+    {@"time", @"Time", NO},
     {nil, nil}
 };
 
@@ -202,8 +201,8 @@ column_t columnDefs[] = {
     if (cols == nil) {
         NSArray *tableColumns = [NSArray arrayWithArray:[fileListView tableColumns]];
         NSTableColumn *column = [tableColumns objectAtIndex:0];
-        [column setIdentifier:COLUMNID_NAME];
-        column = [[NSTableColumn alloc] initWithIdentifier:COLUMNID_TIME];
+        [column setIdentifier:ColumnIdConstants.name];
+        column = [[NSTableColumn alloc] initWithIdentifier:ColumnIdConstants.time];
         
         [fileListView addTableColumn:column];
         [column setWidth:150];
@@ -253,7 +252,7 @@ column_t columnDefs[] = {
             }
         }
         // Name column is special. It can't be removed from view
-        if (!found && ([c.identifier isEqualToString:COLUMNID_NAME])) {
+        if (!found && ([c.identifier isEqualToString:ColumnIdConstants.name])) {
             [[c headerCell] setStringValue:NSLocalizedString(@"Name", nil)];
             // make sure outline column is NameColumn
             [fileListView setOutlineTableColumn:c];
@@ -357,7 +356,7 @@ column_t columnDefs[] = {
 
     if ( [openDlg runModal] == NSModalResponseOK )
     {
-        BOOL sortFiles = [[NSUserDefaults standardUserDefaults] boolForKey:kConfigSortAudioFiles];
+        BOOL sortFiles = [[NSUserDefaults standardUserDefaults] boolForKey:[LegacyConstants kConfigSortAudioFiles]];
         NSArray *urls;
         
         if (sortFiles)
@@ -371,11 +370,12 @@ column_t columnDefs[] = {
             BOOL isDir;
             if ([[NSFileManager defaultManager] fileExistsAtPath:fileName isDirectory:&isDir])
             {
-                if (isDir)
+                if (isDir) {
                     // add file recursively
                     [fileList addFilesInDirectory:fileName];
-                else
+                } else {
                     [fileList addFile:fileName];
+                }
 
             }
         }
@@ -419,8 +419,7 @@ column_t columnDefs[] = {
 #else
     NSSavePanel *savePanel = [NSSavePanel savePanel];
     [savePanel setAccessoryView: nil];
-    // [savePanel setAllowedFileTypes:[NSArray arrayWithObjects:@"m4a", @"m4b", nil]];
-    NSString *dir = [[NSUserDefaults standardUserDefaults] stringForKey:kConfigDestinationFolder];
+    NSString *dir = [[NSUserDefaults standardUserDefaults] stringForKey:[LegacyConstants kConfigDestinationFolder]];
     
     [savePanel setDirectoryURL:[NSURL fileURLWithPath:dir]];
     [savePanel setNameFieldStringValue:filename];
@@ -446,7 +445,7 @@ column_t columnDefs[] = {
     [saveAsPanel orderOut:nil];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *destPath;
-    _destURL = [NSURL URLByResolvingBookmarkData:[defaults objectForKey:kConfigDestinationFolderBookmark] options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:nil error:nil];
+    _destURL = [NSURL URLByResolvingBookmarkData:[defaults objectForKey:[LegacyConstants kConfigDestinationFolderBookmark]] options:NSURLBookmarkResolutionWithSecurityScope relativeToURL:nil bookmarkDataIsStale:nil error:nil];
     if (_destURL == nil) {
 #ifdef APP_STORE_BUILD
         if (requiresUpdateHack) {
@@ -473,7 +472,7 @@ column_t columnDefs[] = {
             destPath = [defaults stringForKey:kConfigDestinationFolder];
 #else
         // standard Music directory
-        destPath = [defaults stringForKey:kConfigDestinationFolder];
+        destPath = [defaults stringForKey:[LegacyConstants kConfigDestinationFolder]];
 #endif
     }
     else {
@@ -609,7 +608,7 @@ column_t columnDefs[] = {
     NSString *coverImageFilename = nil;
     NSImage *coverImage = coverImageView.coverImage;
     UInt64 maxVolumeDuration = 0;
-    NSInteger hours = [[NSUserDefaults standardUserDefaults] integerForKey:kConfigMaxVolumeSize];
+    NSInteger hours = [[NSUserDefaults standardUserDefaults] integerForKey:[LegacyConstants kConfigMaxVolumeSize]];
     if ((hours > 0) && (hours < 25))
         maxVolumeDuration = hours * 3600;
     
@@ -623,7 +622,7 @@ column_t columnDefs[] = {
     NSString *outFileBase = [outFile stringByDeletingPathExtension];
     NSString *outFileExt = [outFile pathExtension];
     
-    NSArray *files = [fileList files];
+    NSArray *files = [fileList allFiles];
     NSMutableArray *inputFiles = [[NSMutableArray alloc] init];
     UInt64 estVolumeDuration = 0;
     NSString *currentVolumeName = [outFile copy];
@@ -707,9 +706,9 @@ column_t columnDefs[] = {
     // make sure that at this point we have valid bitrate in settings
     // setup channels/samplerate
     
-    _binder.channels = (UInt32)[[NSUserDefaults standardUserDefaults] integerForKey:kConfigChannels];
-    _binder.sampleRate = [[NSUserDefaults standardUserDefaults] floatForKey:kConfigSampleRate];
-    _binder.bitrate = (UInt32)[[NSUserDefaults standardUserDefaults] integerForKey:kConfigBitrate];
+    _binder.channels = (UInt32)[[NSUserDefaults standardUserDefaults] integerForKey:[LegacyConstants kConfigChannels]];
+    _binder.sampleRate = [[NSUserDefaults standardUserDefaults] floatForKey:[LegacyConstants kConfigSampleRate]];
+    _binder.bitrate = (UInt32)[[NSUserDefaults standardUserDefaults] integerForKey:[LegacyConstants kConfigBitrate]];
     
     [self performSelectorOnMainThread:@selector(showProgressPanel:) withObject:nil waitUntilDone:NO];
 
@@ -1064,7 +1063,7 @@ column_t columnDefs[] = {
             // build set it as well
 #endif
             NSString * folder = [folderURL path];
-            [defaults setObject:folder forKey:kConfigDestinationFolder];
+            [defaults setObject:folder forKey:[LegacyConstants kConfigDestinationFolder]];
         }
         [self->saveAsFolderPopUp selectItemAtIndex:0];
 

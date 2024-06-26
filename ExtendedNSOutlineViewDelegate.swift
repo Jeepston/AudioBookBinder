@@ -1,10 +1,4 @@
-//
-//  ExtendedNSOutlineViewDelegate.swift
-//  AudioBookBinder
-//
-//  Created by Dmitrij Hojkolov on 19.05.2024.
-//  Copyright © 2024 AudioBookBinder. All rights reserved.
-//
+
 
 import Cocoa
 
@@ -13,4 +7,7 @@ protocol ExtendedNSOutlineViewDelegate: NSOutlineViewDelegate {
  
     @objc(delKeyDown:)
     func delKeyDown(_ sender: NSOutlineView)
+    
+    @objc(enterKeyDown:)
+    func enterKetDown(_ sender: NSOutlineView)
 }

@@ -1,10 +1,4 @@
-//
-//  AudioBinderWindowController.swift
-//  AudioBookBinder
-//
-//  Created by Dmitrij Hojkolov on 18.05.2024.
-//  Copyright © 2024 AudioBookBinder. All rights reserved.
-//
+
 
 import Cocoa
 import CoreAudioTypes
@@ -23,7 +17,7 @@ extension AudioBinderWindowController: AudioBinderDelegate {
     }
     
     func conversionStart(file: AudioFile, format: UnsafeMutablePointer<AudioStreamBasicDescription>, formatDescription: String, length: UInt64) {
-        updateProgressString(String(format: NSLocalizedString("Converting %@", comment: ""), file.filePath.path()))
+        updateProgressString(String(format: NSLocalizedString("Converting %@", comment: ""), file.filePath.path().removingPercentEncoding ?? ""))
         updateProgress(0, total: Double(length))
     }
     

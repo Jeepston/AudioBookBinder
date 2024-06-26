@@ -15,8 +15,8 @@ final class Chapter: NSObject {
         return c
     }
 
-    @objc (addFile:)
-    func addFile(file: AudioFile) {
+    @objc(addFile:)
+    func addFile(_ file: AudioFile) {
         files.append(file)
     }
 
@@ -25,12 +25,12 @@ final class Chapter: NSObject {
         files.append(contentsOf: newFiles)
     }
 
-    @objc (containsFile:)
+    @objc(containsFile:)
     func containsFile(file: AudioFile) -> Bool {
         files.contains(file)
     }
 
-    @objc (indexOfFile:)
+    @objc(indexOfFile:)
     func indexOfFile(file: AudioFile) -> Int {
         files.firstIndex(of: file) ?? 0
     }
@@ -40,19 +40,19 @@ final class Chapter: NSObject {
         files.count
     }
 
-    @objc (fileAtIndex:)
+    @objc(fileAtIndex:)
     func fileAtIndex(index: Int) -> AudioFile? {
         files[index]
     }
 
-    @objc (removeFile:)
+    @objc(removeFile:)
     func removeFile(file: AudioFile) {
         if let index = files.firstIndex(of: file) {
           files.remove(at: index)
         }
     }
 
-    @objc (insertFile:atIndex:)
+    @objc(insertFile:atIndex:)
     func insertFile(file: AudioFile, atIndex: Int) {
         files.insert(file, at: atIndex)
     }
@@ -68,7 +68,7 @@ final class Chapter: NSObject {
     // splits chapter into two. All files prior to given file
     // remain in this chapter, the rest goes to newly-created
     // chapter
-    @objc (splitAtFile:)
+    @objc(splitAtFile:)
     func splitAtFile(file: AudioFile) -> Chapter? {
 
         guard let idx = files.firstIndex(of: file) else {
@@ -78,14 +78,14 @@ final class Chapter: NSObject {
         c.name = name
         while (idx < files.count) {
             let f = files[idx]
-            c.addFile(file: f)
+            c.addFile(f)
             files.remove(at: idx)
         }
         
         return c
     }
 
-    @objc (sortUsingDecriptor:)
+    @objc(sortUsingDecriptor:)
     func sortUsingDecriptor(descriptor: NSSortDescriptor) {
         files = (files as NSArray).sortedArray(using: [descriptor]) as! [AudioFile]
     }

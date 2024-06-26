@@ -54,7 +54,7 @@ final class AudioBinder: NSObject {
             nil,
             AudioFileFlags.eraseFile.rawValue,
             &outAudioFile
-        );
+        )
         
         guard status == noErr, outAudioFile != nil else {
             debugPrint("Can't create output file \(outFile): \(osStatusStringDescription(status))")
@@ -67,7 +67,7 @@ final class AudioBinder: NSObject {
         return true
     }
     
-    @objc (addVolume:files:)
+    @objc(addVolume:files:)
     func addVolume(_ fileName: String, files: [AudioFile]) {
         let volume = AudioBookVolume(filename: fileName, inputFiles: files)
         volumes.append(volume)

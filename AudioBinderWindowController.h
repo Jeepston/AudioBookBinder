@@ -27,7 +27,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "AudioFileList.h"
 #import "CoverImageView.h"
 
 @interface AudioBinderWindowController : NSWindowController<NSSoundDelegate, NSTextFieldDelegate> {
